@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, withRouter } from 'react-router-dom';
+
 
 
 
@@ -15,7 +15,7 @@ export default class FicheProduit extends React.Component {
                 nom: "",
                 categorie: {
                     id_categorie: "",
-                    linelle: "",
+                    libelle: "",
                 }
             }
         }
@@ -48,7 +48,7 @@ export default class FicheProduit extends React.Component {
                             <div>
                                 {this.state.produit.categorie.libelle}
                             </div>
-                            <td><img src={this.state.produit.url_image} width="50" height="50" /></td>
+                            <td><img src={this.state.produit.url_image} alt="" width="50" height="50" /></td>
                         </div>
                         <div id="message_produit">
                             {this.state.message}
@@ -62,18 +62,20 @@ export default class FicheProduit extends React.Component {
 
     
     componentDidMount() {
-        const id = this.props.match.params.id;
+        const id = this.props.match.params.id_produit;
         fetch("http://localhost:8080/produits/" + id, {
-            method: "GET"
+            method: "GET",
+                headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin" :"*"},
+             
         })
             .then((response) =>{
                 if(response.ok){
                     response.json().then(data=> this.setState({ produit: data }))
                 }
                 else{
-                    if(response.status==400)
+                    if(response.status===400)
                     {this.setState({ id_incorrect: true })}
-                    else if(response.status==404){
+                    else if(response.status===404){
                     this.setState({ produitNul: true })
                       console.log(response.status);}
                 }

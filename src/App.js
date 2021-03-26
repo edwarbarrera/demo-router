@@ -1,23 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import {Link,Route} from 'react-router-dom';
+import Produits from './Produits';
+import Categories from './Categories';
+import ProduitForm from './ProduitForm';
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+       <Link to="/produits" > Produits</Link> {/* cree un lien vet l url */}
+       <Link to="/categories">Categories</Link>
+       <Link to="/formulaireProduit">Formulaire produit</Link>
+     
+
       </header>
+      <main>
+        <Route  path="/produits" component={Produits}/>
+        <Route  path="/categories" component={Categories}/>
+        <Route  path="/formulaireProduit" component={ProduitForm}/>
+      </main>
     </div>
   );
 }
