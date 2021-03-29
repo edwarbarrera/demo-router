@@ -40,7 +40,7 @@ export default class ProduitForm extends React.Component {
             id_categorie : this.state.id_categorie
         }
         let produit = {
-            id_produit: this.state.id_produit,
+            id: this.state.id_produit,
             nom: this.state.nom,
             quantite:  this.state.quantite,
             description: this.state.description,
@@ -61,14 +61,14 @@ export default class ProduitForm extends React.Component {
             //product.id = this.state.productId;
             fetch("http://localhost:8080/produits", {
                 method: "POST", 
-                headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin" :"*"},
+                headers: { "Content-type": "application/json"},
                 body: JSON.stringify(produit)
             }).then((data) => data.json())
                     console.log("saved");
                 }else {
-                    fetch(`http://localhost:8080/produits/${produit.id_produit}`, {
+                    fetch(`http://localhost:8080/produits/${this.props.match.params.id}`, {
                         method: "PUT",
-                        headers: { "Content-type": "application/json","Access-Control-Allow-Origin":"*" },
+                        headers: {"Content-type": "application/json" },
                         body: JSON.stringify(produit)
                     })
                         .then((data) => data.json())
@@ -90,14 +90,14 @@ export default class ProduitForm extends React.Component {
 
     render() {
 
-        const edit = !!this.props.match.params.id_produit;
+        const edit = !!this.props.match.params.id;
         return (
             <div className="add-box">
                 <h2>Ajouter un produit</h2>
                 <form>
                     <div className="champ" style={edit ? {} : { display: 'none' }}></div>
                     <label>   id :</label>
-                    <input name="id_produit" readOnly value={this.props.match.params.id_produit} />
+                    <input name="id_produit" readOnly value={this.props.match.params.id} />
                    {/*value  avec le statte du this product permet de preremplir le formulaire*/}
                     <input type="text" name="nom" value={this.state.nom} placeholder="nom" onChange={this.handleChange} />
                     <input type="text" name="id_categorie" value={this.state.id_categorie} placeholder="catégorie" onChange={this.handleChange} />
@@ -125,9 +125,9 @@ export default class ProduitForm extends React.Component {
         );
     }
 
-
+/* 
     componentDidMount() {
-        const id = this.props.match.params.id_produit;
+        const id = this.props.match.params.id;
         fetch("http://localhost:8080/produits/"+ id, {
                 method: "post"
                
@@ -144,6 +144,6 @@ export default class ProduitForm extends React.Component {
                       console.log(response.status);}
                 }
             });
-    }
+    } */
 
 }

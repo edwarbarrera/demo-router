@@ -12,14 +12,16 @@ export default class FicheProduit extends React.Component {
             id_incorrect:false,
             produit: {
                 id_produit : "",
-                nom: "",
-                categorie: {
-                    id_categorie: "",
-                    libelle: "",
+                nom : "",
+                quantite : "",
+                description : "",
+                url_image : "",
+                id_categorie : "",
+                prix_actuel : ""
                 }
             }
         }
-    }
+    
     
         render() {
             if (this.state.produitNul) {return <p>le produit n existe pas !</p>}
@@ -31,8 +33,9 @@ export default class FicheProduit extends React.Component {
                         <div >
 
                             <div id="p.id_produit">
-                                {this.state.produit.id_produit}
+                               <h2>{this.state.produit.id_produit}</h2> 
                             </div>
+                            <h2>{this.state.produit.nom}</h2>
                             <div>
                                 {this.state.produit.nom}
                             </div>
@@ -42,12 +45,8 @@ export default class FicheProduit extends React.Component {
                             <div>
                                 {this.state.produit.description}
                             </div>
-                            <div>
-                                {this.state.produit.categorie.id_categorie}
-                            </div>
-                            <div>
-                                {this.state.produit.categorie.libelle}
-                            </div>
+                            
+                            
                             <td><img src={this.state.produit.url_image} alt="" width="50" height="50" /></td>
                         </div>
                         <div id="message_produit">
@@ -62,7 +61,7 @@ export default class FicheProduit extends React.Component {
 
     
     componentDidMount() {
-        const id = this.props.match.params.id_produit;
+        const id = this.props.match.params.id;
         fetch("http://localhost:8080/produits/" + id, {
             method: "GET",
                 headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin" :"*"},
@@ -77,7 +76,7 @@ export default class FicheProduit extends React.Component {
                     {this.setState({ id_incorrect: true })}
                     else if(response.status===404){
                     this.setState({ produitNul: true })
-                      console.log(response.status);}
+                      console.log("response.status :" +response.status);}
                 }
             });
     }
