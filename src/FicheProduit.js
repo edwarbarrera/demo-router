@@ -17,7 +17,11 @@ export default class FicheProduit extends React.Component {
                 description : "",
                 url_image : "",
                 id_categorie : "",
-                prix_actuel : ""
+                prix_actuel : "",
+                categorie:{
+                    id_categorie: "",
+                    libelle: ""
+                }
                 }
             }
         }
@@ -31,23 +35,28 @@ export default class FicheProduit extends React.Component {
                 return(
                     <React.Fragment>
                         <div >
-
+                       
                             <div id="p.id_produit">
-                               <h2>{this.state.produit.id_produit}</h2> 
+                               <h2>Référence produit :{this.state.produit.id_produit}</h2>
+                               <h2>Categorie :{this.state.produit.categorie.libelle} {this.state.produit.categorie.id_categorie}</h2>
+                               <div><img src={this.state.produit.url_image} alt="" width="150" height="150" /></div> 
                             </div>
                             <h2>{this.state.produit.nom}</h2>
                             <div>
                                 {this.state.produit.nom}
                             </div>
                             <div>
-                                {this.state.produit.quantite}
+                              Disponibles en stock :  {this.state.produit.quantite + " exemplaires"}
                             </div>
                             <div>
                                 {this.state.produit.description}
                             </div>
+                            <div>
+                            Prix :  {this.state.produit.prix_actuel+" \u20AC"}
+                            </div>
                             
-                            
-                            <td><img src={this.state.produit.url_image} alt="" width="50" height="50" /></td>
+                            <button>Ajouter au panier</button>
+                          
                         </div>
                         <div id="message_produit">
                             {this.state.message}
@@ -62,7 +71,7 @@ export default class FicheProduit extends React.Component {
     
     componentDidMount() {
         const id = this.props.match.params.id;
-        fetch("http://localhost:8080/produits/" + id, {
+        fetch("http://localhost:8080/produits/"+id, {
             method: "GET",
                 headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin" :"*"},
             
