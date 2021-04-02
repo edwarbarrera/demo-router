@@ -17,7 +17,11 @@ export default class ProduitLigne extends React.Component {
             prix_actuel: "",
         }
 
+<<<<<<< HEAD
     } showForm = (produit) => {
+=======
+    }showForm = (produit) => {
+>>>>>>> master
         this.setState({ startEditing: true, produit: produit });
 
     }
@@ -25,6 +29,7 @@ export default class ProduitLigne extends React.Component {
     render() {
         let produit = this.props.produit;
         return (
+<<<<<<< HEAD
             (this.state.networkError ?
                 <p>Problème de connexion</p> :
                 <React.Fragment>
@@ -45,6 +50,28 @@ export default class ProduitLigne extends React.Component {
 
                 </React.Fragment>
             )
+=======
+            (this.state.networkError ? 
+                <p>Problème de connexion</p> :
+                <React.Fragment>
+                  
+
+            <tr>
+                <td><img src={this.props.produit.url_image} alt="" width="50" height="50" /></td>
+                <td>{this.props.produit.nom}</td>
+                <td>{this.props.produit.quantite}</td>
+                <td>{this.props.produit.description}</td>
+                <td>{this.props.produit.prix_actuel}</td>
+                <td>{this.props.produit.categorie.libelle}</td>
+                <td>
+                    <button onClick={()=>this.state.showForm(produit.id_produit)} > modifier</button>
+                    <button onClick={()=>this.props.deleteCallback(produit.id_produit)}>supprimer</button>
+                </td>
+            </tr>
+           
+                </React.Fragment>
+              )
+>>>>>>> master
         );
     }
 }

@@ -1,10 +1,14 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Route} from 'react-router-dom';
 import CategorieForm from './CategorieForm';
+=======
+>>>>>>> master
 
 
 export default class Categories extends React.Component{
     render(){
+<<<<<<< HEAD
         return (
             <React.Fragment>
                 <switch>
@@ -12,5 +16,8 @@ export default class Categories extends React.Component{
                 </switch>
             </React.Fragment>
         );
+=======
+        return ("liste des categories");
+>>>>>>> master
     }
 }
