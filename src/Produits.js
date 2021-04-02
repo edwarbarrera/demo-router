@@ -85,7 +85,7 @@ export default class Produits extends React.Component {
           })
         }
         else{
-            fetch(`http://localhost:8080/api/employe/produits/edit`, {//a rajouter id produit
+            fetch(`http://localhost:8080/api/employe/produits/edit`, {//modifie produit si il exite deja
               method: "PUT",
               headers: {"Content-type": "application/json"},
               body: JSON.stringify(produit)
@@ -108,7 +108,7 @@ export default class Produits extends React.Component {
 
         delete = (produitId)=>{//productId = 2 => products=[1,3]
           
-            fetch(`http://localhost:8080/api/employe/produits/${produitId}`, {
+            fetch(`http://localhost:8080/api/employe/delete/produits/${produitId}`, {
               method: "DELETE"
             })
             .then((data)=>{

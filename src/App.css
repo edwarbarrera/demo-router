@@ -34,11 +34,7 @@ img, section {
 
 
 .App-header {
-<<<<<<< HEAD
   background-color: #caced5;
-=======
-  background-color: #282c34;
->>>>>>> master
   min-height: 10vh;
   display: flex;
   flex-direction: row;
