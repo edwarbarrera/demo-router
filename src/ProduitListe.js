@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import { button } from 'react-validation/build/button';
 
 export default class ProduitListe extends React.Component {
     constructor(props) {
@@ -35,7 +36,8 @@ export default class ProduitListe extends React.Component {
                 />
                 <table>
                     <thead>
-                        <tr>
+                        <tr> 
+                             <th>image</th>
                             <th>id</th>
                             <th>nom</th>
                             <th>cat id</th>
@@ -46,14 +48,16 @@ export default class ProduitListe extends React.Component {
                     <tbody>
                         {this.props.produits.map((p) => {
                             return (<tr key={p.id_produit}> 
+                            <img src={p.url_image} alt="" width="50" height="50" />
                                 <td>{p.id_produit}</td>
                                 <td>{p.nom}</td>
                                 <td>{p.categorie.id_categorie}</td>
                                 <td>{p.categorie.libelle}</td>
+                                
                                 <td>
                                     <Link to={this.props.match.url + '/'+p.id_produit}>Afficher</Link>
-                                    <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+p.id}>Modifier</Link>
-                                    <button style={isEmploye ? {}: {display: "none" }}  onClick={() => this.props.deleteCallback(p.id)}>Supprimer</button>
+                                    <Link style={isEmploye ? {}: {}} to={this.props.match.url + '/edit/'+p.id}>Modifier</Link>
+                                    <button style={isEmploye ? {}: {}}  onClick={() => this.props.deleteCallback(p.id)}>Supprimer</button>
                                     
                                 </td>
                             </tr>)

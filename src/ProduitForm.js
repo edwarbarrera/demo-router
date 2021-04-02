@@ -8,7 +8,7 @@ export default class ProduitForm extends React.Component {
         super(props);
         this.state = {
             produit: {
-                id_produit: null,
+                id_produit: "",
                 nom: "",
                 quantite: "",
                 description: "",
