@@ -85,7 +85,7 @@ export default class Produits extends React.Component {
           })
         }
         else{
-            fetch(`http://localhost:8080/api/employe/produits/edit/`, {//a rajouter id produit
+            fetch(`http://localhost:8080/api/employe/produits/edit`, {//a rajouter id produit
               method: "PUT",
               headers: {"Content-type": "application/json"},
               body: JSON.stringify(produit)

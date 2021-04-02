@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './authHeader';
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = 'http://localhost:8080/api';
 
 class ProduitService {
   getProduits(numeroPage, parPage, motCle) {
@@ -9,7 +9,7 @@ class ProduitService {
   }
 
   createProduit(produit) {
-    return axios.post(API_URL + 'employe/produits/create', 
+    return axios.post(API_URL + '/employe/produits/create', 
                 produit, { headers: authHeader() });
   }
 
