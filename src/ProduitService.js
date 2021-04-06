@@ -20,6 +20,12 @@ class ProduitService {
                 produit, { headers: authHeader() });
   }
 
+  deleteProduit(id_produit) {
+    console.log("ProduitService -> deleteProduit");
+    return axios.delete(API_URL + '/employe/produits/delete/' +id_produit, 
+                 { headers: authHeader() });
+  }
+
   /* getAdminBoard() {
     return axios.get(API_URL + 'gerant', { headers: authHeader() });
   } */

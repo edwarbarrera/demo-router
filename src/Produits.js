@@ -123,24 +123,39 @@ export default class Produits extends React.Component {
           } 
         }
 
-        delete = (produitId)=>{//productId = 2 => products=[1,3]
-          
-            fetch(`http://localhost:8080/api/employe/produits/${produitId}`, {
-              method: "DELETE"
-            })
-            .then((data)=>{
-                console.log(data);
-                if (data.status === 200) {
-                    this.setState(
-                        {produits : 
-                          this.state.produits.filter((produit)=> produit.id !== produitId)})
-                }
-                else{
-                    alert("Opération échouée!")
-                }
-                
-            })
+        delete = (id_produit)=>{
+          ProduitService.deleteProduit(id_produit).then((response)=>{
+            console.log("Produits/deleteProduit -> response : "+response.data);
+            this.getProduitsCount();
+            this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
+            this.setCurrentPage(this.state.pageCount-1)
+          }, (error)=>{
+            console.log("Produits/createProduit -> error : " +error);
+            if (error.response) {
+              if (error.response.status === 403) {
+                alert("Accès refusé : Connectez-vous en tant qu'Employé pour supprimer un produit")
+                this.props.history.push(`/login`)
+              }
+            }
+          })
           }
+      
+            // fetch(`http://localhost:8080/api/employe/produits/${produitId}`, {
+            //   method: "DELETE"
+            // })
+            // .then((data)=>{
+            //     console.log(data);
+            //     if (data.status === 200) {
+            //         this.setState(
+            //             {produits : 
+            //               this.state.produits.filter((produit)=> produit.id !== produitId)})
+            //     }
+            //     else{
+            //         alert("Opération échouée!")
+            //     }
+                
+            // })
+          // }
 
           
     search = (motCle)=>{
