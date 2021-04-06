@@ -1,31 +1,51 @@
-.App {
-  text-align: center;
+
+#produits {
+	display: flex;
+	flex-direction: column;
+}
+/* Chaque produit */
+#produits > section {
+	display: flex;
+	flex-wrap: wrap; /* pour passer à la ligne si nécessaire */
+	padding: 1em;
+}
+/* La partie à droite de chaque produit */
+#produits > section > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between; /* espace entre les éléments */
+	padding: 1em;
+	max-width: 50%; /* pour éviter que ça s'étale trop, et aille à la ligne à cause du wrap */
+}
+/* Adaptation aux petits écrans mobiles */
+@media (max-width:480px) {
+	#produits > section > div {
+		max-width: 100%;
+	}
+	#produits > section > div > * {
+		padding: 1em 0;	/* pour séparer les 3 blocs de prix - description - boutons */
+	}
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* A enlever, c'est juste pour mieux voir les boites */
+img, section {
+  border: solid 1px orange;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
-  background-color: #282c34;
+  background-color: #caced5;
   min-height: 10vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #fff;
 }
 
 @keyframes App-logo-spin {

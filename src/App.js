@@ -1,27 +1,53 @@
+import React from 'react';
+
 import './App.css';
-import {Link,Route} from 'react-router-dom';
+import {Link, Route} from 'react-router-dom';
 import Produits from './Produits';
 import Categories from './Categories';
-import ProduitForm from './ProduitForm';
+import Login from './Login';
+import AuthService from './AuthService';
 
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      currentUser : undefined
+    }
+  }
+  setCurrentUser = (user)=>{
+    console.log(user);
+    this.setState({currentUser: user})
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-       <Link to="/produits" > Produits</Link> {/* cree un lien vet l url */}
-       <Link to="/categories">Categories</Link>
-       <Link to="/formulaireProduit">Formulaire produit</Link>
-     
+  logOut = () =>{
+    AuthService.logout();
+  }
 
-      </header>
-      <main>
-        <Route  path="/produits" component={Produits}/>
-        <Route  path="/categories" component={Categories}/>
-        <Route  path="/formulaireProduit" component={ProduitForm}/>
-      </main>
-    </div>
-  );
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Link to="/produits?currentPage=0">Produits</Link>
+          <Link to="/categories">Categories</Link>
+          {(this.state.currentUser) && <div>
+                                        <span>{this.state.currentUser.username} | </span>
+                                        <a href="/login" className="nav-link" onClick={this.logOut}>
+                                          Se déconnecter
+                                        </a>
+                                      </div>}
+          {(!this.state.currentUser) && <Link to="/login">Se connecter</Link>}
+          
+        </header>
+        <main>
+          <Route path="/produits" render={(props)=> <Produits {...props} currentUser={this.state.currentUser} />}/>
+          <Route path="/categories" component={Categories}/>
+          <Route path="/login" render={(props)=> <Login {...props} setCurrentUser={this.setCurrentUser} />}/>
+        </main>
+      </div>
+    );
+  }
+  componentDidMount(){
+    this.setState({currentUser : AuthService.getCurrentUser()})
+  }
 }
-
 export default App;
