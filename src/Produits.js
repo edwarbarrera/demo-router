@@ -43,8 +43,8 @@ export default class Produits extends React.Component {
                 .then((res)=> {
                   console.log(res);
                   this.setState({
-                    produitsCount: res.produitsCount,
-                    pageCount: Math.ceil(res.produitsCount / this.state.parPage)
+                    produitsCount: res.produitsCompteur,
+                    pageCount: Math.ceil(res.produitsCompteur / this.state.parPage)
                     }
                   )
                 })
@@ -70,12 +70,12 @@ export default class Produits extends React.Component {
         //   })
         // }
         ProduitService.createProduit(produit).then((response)=>{
-            console.log(response.data);
+            console.log("Produits/createProduit -> response : "+response.data);
             this.getProduitsCount();
             this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
             this.setCurrentPage(this.state.pageCount-1)
           }, (error)=>{
-            console.log(error);
+            console.log("Produits/createProduit -> error : " +error);
             if (error.response) {
               if (error.response.status === 403) {
                 alert("Accès refusé : Connectez-vous en tant qu'Employé pour créer un produit")
@@ -85,20 +85,37 @@ export default class Produits extends React.Component {
           })
         }
         else{
-            fetch(`http://localhost:8080/api/employe/produits/edit/`, {//a rajouter id produit
-              method: "PUT",
-              headers: {"Content-type": "application/json"},
-              body: JSON.stringify(produit)
-            })
-            .then((data)=>data.json())
-            .then((res)=> {
-                this.setState(
-                  {
-                  produits: this.state.produits.map((p)=> p.id === produit.id_produit ? res : p)
-                  }
-                  )
-                  this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${this.state.motCle}`)}
-              )
+          ProduitService.modifProduit(produit).then((response)=>{
+            console.log("Produits/modifProduit -> response : "+response.data);
+            this.getProduitsCount();
+            this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
+            this.setCurrentPage(this.state.pageCount-1)
+          }, (error)=>{
+            console.log("Produits/modifProduit -> error : " +error);
+            if (error.response) {
+              if (error.response.status === 403) {
+                alert("Accès refusé : Connectez-vous en tant qu'Employé pour modifier un produit")
+                this.props.history.push(`/login`)
+              }
+            }
+          })
+
+            // fetch(`http://localhost:8080/api/employe/produits/edit/`, {//a rajouter id produit
+            //   method: "PUT",
+            //   headers: {"Content-type": "application/json"},
+            //   body: JSON.stringify(produit)
+            // })
+            // .then((data)=>data.json())
+            // .then((res)=> {
+            //     this.setState(
+            //       {
+            //       produits: this.state.produits.map((p)=> p.id === produit.id_produit ? res : p)
+            //       }
+            //       )
+            //       this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${this.state.motCle}`)}
+            //   )
+
+
            /*  ProduitService.getProduits().then((response)=>{
                 console.log();
                 this.setState({produits: res.data})
@@ -140,7 +157,9 @@ export default class Produits extends React.Component {
       }
     render() {
         console.log(this.props.match);
+        console.log(this.state.produits);
         const isEmploye = this.props.currentUser && this.props.currentUser.roles && this.props.currentUser.roles.includes("ROLE_EMPLOYE");
+       console.log("Produit -> Boolean isEmploye : "+isEmploye);
         return (
             <React.Fragment>
                 <div className="App-header">

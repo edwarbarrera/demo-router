@@ -1,7 +1,5 @@
 import React from 'react';
-
-
-
+import authHeader from './authHeader';
 
 export default class ProduitForm extends React.Component {
     constructor(props) {
@@ -21,6 +19,7 @@ export default class ProduitForm extends React.Component {
             },
             categories: []
         }
+        console.log(this.props.match.url);
     }
     cancel = (evt) => {
         evt.preventDefault();
@@ -130,6 +129,9 @@ export default class ProduitForm extends React.Component {
                             <input type="number" name="prix_actuel" value={produit.prix_actuel} placeholder="Prix" onChange={this.handleChange} />
                         </div>
                         <div>
+                            <input type="text" name="quantite" value={produit.quantite} placeholder="quantite" onChange={this.handleChange} />
+                        </div>
+                        <div>
                             <input type="text" name="description" value={produit.description} placeholder="description" onChange={this.handleChange} />
                         </div>
                         <div>
@@ -140,10 +142,10 @@ export default class ProduitForm extends React.Component {
 
                             categorie : <select name="categorie" id="" onChange={this.handleChange}>
                                 {this.state.categories.map(cat => {
-                                    const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
+                                    const selected = cat.id_categorie === produit.categorie.id_categorie ? { selected: "selected" } : {};
                                     return <option 
-                                    key={cat.id} 
-                                    value={cat.id}
+                                    key={cat.id_categorie} 
+                                    value={cat.id_categorie}
                                     // {...selected}
                                     >{cat.libelle}</option>
                                 })}
@@ -165,9 +167,11 @@ export default class ProduitForm extends React.Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         if (id) {
-            fetch(`http://localhost:8080/produits/${id}`, {
-                method: "GET"
-
+            fetch(`http://localhost:8080/api/public/produits/${id}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': authHeader()
+                  }
             })
                 .then((data) => {
                     console.log(data);
