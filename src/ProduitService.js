@@ -12,7 +12,9 @@ class ProduitService {
     return axios.post(API_URL + '/employe/produits/create', 
                 produit, { headers: authHeader() });
   }
-
+  getAllProduitsByPrix(numeroPage, parPage, min, max) {
+    return axios.get(API_URL + `/public/produits/recherchePrix?numeroPage=${numeroPage}&parPage=${parPage}&min=${min}&max=${max}`);
+  }
   /* getAdminBoard() {
     return axios.get(API_URL + 'gerant', { headers: authHeader() });
   } */

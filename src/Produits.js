@@ -11,10 +11,14 @@ export default class Produits extends React.Component {
         this.state = {
             produits: [],
             produitsCount: 0,
+            produitsCountParPrix: 0,
             currentPage : 0,
             parPage: 10,
             pageCount: 1,
-            motCle: ""
+            motCle: "",
+            min:0,
+            max:1000
+
 
         }
     }
@@ -32,6 +36,15 @@ export default class Produits extends React.Component {
             console.log(error);
           })
         }
+        getAllProduitsByPrix=(numeroPage=this.state.currentPage, parPage=this.state.parPage, min="", max="")=>{ 
+          ProduitService.getProduits(numeroPage, parPage, min,max).then((response)=>{
+              console.log(response.data);
+              this.setState({produits: response.data})
+            }, (error)=>{
+              console.log(error);
+            })
+          }
+
         getProduitsCount = (motCle="")=>{
             fetch(`http://localhost:8080/api/public/count?motCle=${motCle}`, {
                   method: "GET"
@@ -49,7 +62,23 @@ export default class Produits extends React.Component {
                   )
                 })
           }
-    
+          getProduitsCountParPrix = (min="",max="")=>{
+            fetch(`http://localhost:8080/api/public/countParPrix?min=${min}&max=${max}`, {
+                  method: "GET"
+                })
+                .then((data)=>{
+                    console.log(data);
+                    return data.json()
+                  })
+                .then((res)=> {
+                  console.log(res);
+                  this.setState({
+                    produitsCountParPrix: res.produitsCompteurParPrix,
+                    pageCount: Math.ceil(res.produitsCompteurParPrix/ this.state.parPage)
+                    }
+                  )
+                })
+          }
     
     
     
@@ -130,7 +159,7 @@ export default class Produits extends React.Component {
         this.getProduits(0, this.state.parPage, motCle);
         this.getProduitsCount(motCle);
         this.setState({motCle: motCle, currentPage: 0});
-        this.props.history.push(`/?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
+        this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
       }
       clearSearchWord = () =>{
         this.setState({motCle: ""});
@@ -138,6 +167,19 @@ export default class Produits extends React.Component {
         this.getProduits();
         this.getProduitsCount();
       }
+      searchParPrix = (min,max)=>{
+        this.getProduits(0, this.state.parPage, min, max);
+        this.getProduitsCountParPrix(min, max);
+        this.setState({min: min,max:max, currentPage: 0});
+        this.props.history.push(`/produits?currentPage=${this.state.currentPage}&min=${min}&max=${max}`);    
+      }
+      clearSearchParPrix = () =>{
+        this.setState({min: "", max:""});
+        this.props.history.push(`/produits?currentPage=0`);    
+        this.getProduits();
+        this.getProduitsCount();
+      }
+
     render() {
         console.log(this.props.match+ "is employE?");
         const isEmploye = this.props.currentUser && this.props.currentUser.roles && this.props.currentUser.roles.includes("ROLE_EMPLOYE");
@@ -160,9 +202,12 @@ export default class Produits extends React.Component {
                                         currentUser={this.props.currentUser}
                                         motCle={this.state.motCle}
                                         search={this.search}
+                                        searchParPrix={this.searchParPrix}
                                         clearSearchWord={this.clearSearchWord}
+                                        clearSearchParPrix ={this.clearSearchParPrix}
                                         produits={this.state.produits}
                                         produitsCount={this.state.produitsCount}
+                                        produitsCountParPrix={this.state.produitsCountParPrix}
                                         currentPage={this.state.currentPage} 
                                         parPage={this.state.parPage} 
                                         pageCount={this.state.pageCount} 
