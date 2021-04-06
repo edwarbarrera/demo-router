@@ -14,7 +14,8 @@ export default class Produits extends React.Component {
             currentPage : 0,
             parPage: 10,
             pageCount: 1,
-            motCle: ""
+            motCle: "",
+            categorie:""
 
         }
     }
@@ -24,8 +25,8 @@ export default class Produits extends React.Component {
         this.getProduits(currentPage, this.state.parPage, this.state.motCle);
       }
 
-      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="")=>{ 
-        ProduitService.getProduits(numeroPage, parPage, motCle).then((response)=>{
+      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="", categorie=this.state.categorie)=>{ 
+        ProduitService.getProduits(numeroPage, parPage, motCle,categorie).then((response)=>{
             console.log(response.data);
             this.setState({produits: response.data})
           }, (error)=>{
@@ -158,11 +159,12 @@ export default class Produits extends React.Component {
           // }
 
           
-    search = (motCle)=>{
-        this.getProduits(0, this.state.parPage, motCle);
+    search = (motCle, categorie)=>{
+        this.getProduits(0, this.state.parPage, motCle, categorie);
+        console.log(categorie);
         this.getProduitsCount(motCle);
-        this.setState({motCle: motCle, currentPage: 0});
-        this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
+        this.setState({motCle: motCle, categorie: categorie , currentPage: 0});
+        this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}&categorie=${categorie}`);    
       }
       clearSearchWord = () =>{
         this.setState({motCle: ""});

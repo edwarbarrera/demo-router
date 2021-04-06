@@ -71,7 +71,7 @@ export default class FicheProduit extends React.Component {
     
     componentDidMount() {
         const id = this.props.match.params.id;
-        fetch("http://localhost:8080/produits/"+id, {
+        fetch("http://localhost:8080/api/public/produits/"+id, {
             method: "GET",
                 headers: { "Content-type": "application/json" ,"Access-Control-Allow-Origin" :"*"},
             
