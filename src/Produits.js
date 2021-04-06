@@ -43,8 +43,8 @@ export default class Produits extends React.Component {
                 .then((res)=> {
                   console.log(res);
                   this.setState({
-                    produitsCount: res.produitsCount,
-                    pageCount: Math.ceil(res.produitsCount / this.state.parPage)
+                    produitsCount: res.produitsCompteur,
+                    pageCount: Math.ceil(res.produitsCompteur / this.state.parPage)
                     }
                   )
                 })
@@ -130,7 +130,7 @@ export default class Produits extends React.Component {
         this.getProduits(0, this.state.parPage, motCle);
         this.getProduitsCount(motCle);
         this.setState({motCle: motCle, currentPage: 0});
-        this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
+        this.props.history.push(`/?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
       }
       clearSearchWord = () =>{
         this.setState({motCle: ""});
@@ -139,19 +139,19 @@ export default class Produits extends React.Component {
         this.getProduitsCount();
       }
     render() {
-        console.log(this.props.match);
+        console.log(this.props.match+ "is employE?");
         const isEmploye = this.props.currentUser && this.props.currentUser.roles && this.props.currentUser.roles.includes("ROLE_EMPLOYE");
         return (
             <React.Fragment>
                 <div className="App-header">
-                    {(isEmploye && <Link to={this.props.match.url + '/create'}>Créer un produit</Link>)}
+                    {(isEmploye && <Link to={this.props.match.url + '/employe/produits/create'}>Créer un produit</Link>)}
                     <SearchBar searchCallback={this.search} annulerSearch={this.clearSearchWord}/>
                 </div>
                 <Switch>
-                    <Route path={this.props.match.path + '/create'} render={
+                    <Route path={this.props.match.path + '/employe/produits/create'} render={
                         (props)=> <ProduitForm {...props}  saveCallback={this.save} />
                     } />
-                    <Route path={this.props.match.path + '/edit/:id'} render={
+                    <Route path={this.props.match.path + '/employe/produits/edit/:id'} render={
                         (props)=> <ProduitForm {...props}  saveCallback={this.save} />
                     } />
                     <Route path={this.props.match.path + '/:id'} component={FicheProduit} />

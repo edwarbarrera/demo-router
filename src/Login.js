@@ -51,7 +51,7 @@ export default class Login extends Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
-        (user) => {
+        (user) => {//=>userdto
           console.log(user);
           this.props.setCurrentUser(user);
           this.props.history.push("/"); 

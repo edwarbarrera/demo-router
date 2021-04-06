@@ -10,19 +10,19 @@ export default class ProduitListe extends React.Component {
     }
 
     handlePageClick = ({selected}) =>{
-        console.log(selected);
+        console.log(selected+ "prev ou next");
         this.props.setCurrentPage(selected);
         this.props.history.push(this.props.match.url + "?currentPage="+selected+"&motCle="+this.props.motCle)
     }
     render() {
         console.log(this.props);
-        const isEmploye = this.props.currentUser && this.props.currentUser.roles.includes("ROLE_EMPLOYE");
+        const isEmploye = this.props.currentUser && this.props.currentUser.roles.includes("ROLE_EMPLOYE" &&  "ROLE_USER");
         return (
             <React.Fragment>
                 {!!this.props.motCle && (<div>{this.props.produitsCount} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
                 <ReactPaginate
-                    previousLabel={"← Previous"}
-                    nextLabel={"Next →"}
+                    previousLabel={<button> {"← Previous"}</button>}
+                    nextLabel={<button>{"Next →"}</button>}
                     initialSelected={this.props.currentPage}
                     forcePage={this.props.currentPage}
                     pageCount={this.props.pageCount}

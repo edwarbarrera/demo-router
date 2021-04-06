@@ -41,7 +41,7 @@ class App extends React.Component{
         <main>
           <Route path="/produits" render={(props)=> <Produits {...props} currentUser={this.state.currentUser} />}/>
           <Route path="/categories" component={Categories}/>
-          <Route path="/login" render={(props)=> <Login {...props} setCurrentUser={this.setCurrentUser} />}/>
+          <Route exact path="/login" render={(props)=> <Login {...props} setCurrentUser={this.setCurrentUser} />}/>
         </main>
       </div>
     );

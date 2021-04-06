@@ -15,7 +15,7 @@ export default class ProduitForm extends React.Component {
                 url_image: "",
                 prix_actuel: "",
                 categorie: {
-                    id_categorie: 1,
+                    id_categorie: "",
                     libelle: ""
                 }
             },
@@ -142,9 +142,9 @@ export default class ProduitForm extends React.Component {
                                 {this.state.categories.map(cat => {
                                     const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
                                     return <option 
-                                    key={cat.id} 
-                                    value={cat.id}
-                                    // {...selected}
+                                    key={cat.id_categorie} 
+                                    value={cat.id_categorie}
+                                     {...selected}
                                     >{cat.libelle}</option>
                                 })}
                             </select>
@@ -181,7 +181,7 @@ export default class ProduitForm extends React.Component {
                 })
         }
 
-        fetch(`http://localhost:8080/categories`, {
+        fetch(`http://localhost:8080/categories/`, {
             method: "GET"
         })
             .then((data) => {
