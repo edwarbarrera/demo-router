@@ -52,8 +52,8 @@ export default class ProduitListe extends React.Component {
                                 <td>{p.categorie.libelle}</td>
                                 <td>
                                     <Link to={this.props.match.url + '/'+p.id_produit}>Afficher</Link>
-                                    <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+p.id}>Modifier</Link>
-                                    <button style={isEmploye ? {}: {display: "none" }}  onClick={() => this.props.deleteCallback(p.id)}>Supprimer</button>
+                                    <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+p.id_produit}>Modifier</Link>
+                                    <button style={isEmploye ? {}: {display: "none" }}  onClick={() => this.props.deleteCallback(p.id_produit)}>Supprimer</button>
                                     
                                 </td>
                             </tr>)
