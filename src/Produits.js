@@ -19,7 +19,7 @@ export default class Produits extends React.Component {
             motCle: "",
             min:0,
             max:1000,
-            //categorie:""
+            categorie:0
 
 
         }
@@ -30,8 +30,8 @@ export default class Produits extends React.Component {
         this.getProduits(currentPage, this.state.parPage, this.state.motCle);
       }
 
-      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="")=>{ 
-        ProduitService.getProduits(numeroPage, parPage, motCle).then((response)=>{
+      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="", categorie=this.state.categorie)=>{ 
+        ProduitService.getProduits(numeroPage, parPage, motCle, categorie).then((response)=>{
             console.log(response.data);
             this.setState({produits: response.data})
           }, (error)=>{
@@ -190,10 +190,10 @@ export default class Produits extends React.Component {
           // }
 
           
-    search = (motCle)=>{
-        this.getProduits(0, this.state.parPage, motCle);
+    search = (motCle, categorie)=>{
+        this.getProduits(0, this.state.parPage, motCle, categorie);
         this.getProduitsCount(motCle);
-        this.setState({motCle: motCle, currentPage: 0});
+        this.setState({motCle: motCle, categorie: categorie , currentPage: 0});
         this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
       }
       clearSearchWord = () =>{
@@ -220,6 +220,7 @@ export default class Produits extends React.Component {
       const isEmploye = AuthService.isEmploye(this.props.currentUser);
         return (
             <React.Fragment>
+              <section>
                 <div className="App-header">
                     {(isEmploye && <Link to={this.props.match.url + '/create'}>Créer un produit</Link>)}
                     
@@ -255,6 +256,7 @@ export default class Produits extends React.Component {
                                         addToCart={this.props.addToCart}  />
                     } />
                 </Switch>
+                </section>
                 
             </React.Fragment>
         )
