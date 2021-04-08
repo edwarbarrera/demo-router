@@ -138,13 +138,13 @@ export default class ProduitForm extends React.Component {
 
                         <div>
 
-                            categorie : <select name="categorie" id="" onChange={this.handleChange}>
+                            categorie : <select name="categorie" id="" onChange={this.handleChange} defaultValue="">
                                 {this.state.categories.map(cat => {
-                                    const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
+                                   const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
                                     return <option 
                                     key={cat.id_categorie} 
                                     value={cat.id_categorie}
-                                     {...selected}
+                                     //{...selected}
                                     >{cat.libelle}</option>
                                 })}
                             </select>
