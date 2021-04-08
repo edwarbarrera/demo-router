@@ -1,4 +1,5 @@
 import React from 'react';
+import Produits from './Produits';
 
 
 
@@ -34,6 +35,8 @@ export default class FicheProduit extends React.Component {
                
                 return(
                     <React.Fragment>
+                        <element id="produits">
+                        <section >
                         <div >
                        
                             <div id="p.id_produit">
@@ -55,13 +58,14 @@ export default class FicheProduit extends React.Component {
                             Prix :  {this.state.produit.prix_actuel+" \u20AC"}
                             </div>
                             
-                            <button>Ajouter au panier</button>
+                            <button onClick={()=>this.props.addToCart(this.state.produit.id_produit)}>Ajouter au panier</button>
                           
                         </div>
                         <div id="message_produit">
                             {this.state.message}
                         </div>
-
+                        </section>
+                        </element>
                     </React.Fragment>)
                     }
         }

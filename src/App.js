@@ -70,8 +70,9 @@ class App extends React.Component{
 
   render(){
     return (
-      <div className="App">
+      <nav className="App">
         <header className="App-header">
+          <nav>
           <Link to="/produits?currentPage=0">Produits</Link>
           <Link to="/categories">Categories</Link>
           <Link to="/panier">Panier ({this.state.panier.length})</Link>
@@ -82,7 +83,7 @@ class App extends React.Component{
                                         </a>
                                       </div>}
           {(!this.state.currentUser) && <Link to="/login">Se connecter</Link>}
-          
+          </nav>
         </header>
         <main>
           <Route path="/produits" render={(props)=> <Produits {...props} addToCart={this.addToCart} currentUser={this.state.currentUser} />}/>
@@ -91,7 +92,7 @@ class App extends React.Component{
           <Route exact path="/login" render={(props)=> <Login {...props} setCurrentUser={this.setCurrentUser} />}/>
           <Route path="/access_denied" component={AccessDenied}/>
         </main>
-      </div>
+              </nav>
     );
   }
   componentDidMount(){

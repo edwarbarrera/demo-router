@@ -16,9 +16,11 @@ export default class SearchBar extends React.Component {
     search = (evt)=>{
       let motCle = this.state.motCle.trim();
       let categorie=this.state.id_categorie;
+      let min = this.state.min;
+      let max = this.state.max;
       console.log(categorie);
      // if(motCle.length > 0){
-        this.props.searchCallback(motCle.toLowerCase(), categorie);
+        this.props.searchCallback(motCle.toLowerCase(), categorie, min, max);
       //}
     }
    
@@ -44,7 +46,7 @@ export default class SearchBar extends React.Component {
     render(){
       return (
         <React.Fragment>
-        <div>
+        <div className="recherche">
           <input type="text" name="motCle" onChange={this.handleChange} value={this.state.motCle}/>
           <select name="id_categorie" value={this.state.id_categorie} onChange={this.handleChange}>
           <option value="0">Catégorie</option>
@@ -52,14 +54,15 @@ export default class SearchBar extends React.Component {
             <option value="2">informatique</option>
             <option value="3">manga</option>
           </select>
-          <button onClick={this.search}>Rechercher</button>
-          <button onClick={this.annuler}>Annuler</button>
+         
           </div>
           <div>
           <input type="number" name="min"placeholder="prix minimun" onChange={this.handleChange} value={this.state.min}/>
           <input type="number" name="max"placeholder="prix maximun" onChange={this.handleChange} value={this.state.max}/>
-          <button onClick={this.searchParPrix}>Rechercher par prix</button>
-          <button onClick={this.annulerParPrix}>Annuler par prix</button>
+          <button className="Rechercher-Button" onClick={this.search}>Rechercher</button>
+          <button className="Annuler-Button" onClick={this.annuler}>Annuler</button>
+          {/* <button onClick={this.searchParPrix}>Rechercher par prix</button>
+          <button onClick={this.annulerParPrix}>Annuler par prix</button> */}
         </div>
         </React.Fragment>)
     }

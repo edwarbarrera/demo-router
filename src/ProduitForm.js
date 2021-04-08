@@ -22,7 +22,9 @@ export default class ProduitForm extends React.Component {
             },
             categories: []
         }
+        console.log(this.props.match.url);
     }
+    
     cancel = (evt) => {
         evt.preventDefault();
         this.props.history.push("/produits");

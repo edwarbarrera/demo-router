@@ -29,7 +29,7 @@ export default class ProduitLigne extends React.Component {
                 <p>Problème de connexion</p> :
                 <React.Fragment>
 
-
+<element id="produits">
                     <section id="produits">
                         <img src={this.props.produit.url_image} alt="" width="50" height="50" />
                         <div>{this.props.produit.nom}</div>
@@ -42,7 +42,7 @@ export default class ProduitLigne extends React.Component {
                             <button onClick={() => this.props.deleteCallback(produit.id_produit)}>supprimer</button>
                         </div> 
                     </section>
-
+                    </element>
                 </React.Fragment>
             )
         );

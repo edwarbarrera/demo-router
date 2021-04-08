@@ -30,8 +30,8 @@ export default class Produits extends React.Component {
         this.getProduits(currentPage, this.state.parPage, this.state.motCle);
       }
 
-      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="", categorie=this.state.categorie)=>{ 
-        ProduitService.getProduits(numeroPage, parPage, motCle, categorie).then((response)=>{
+      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="", categorie=this.state.categorie,min=this.state.min, max=this.state.max)=>{ 
+        ProduitService.getProduits(numeroPage, parPage, motCle, categorie, min, max).then((response)=>{
             console.log(response.data);
             this.setState({produits: response.data})
           }, (error)=>{
@@ -190,10 +190,10 @@ export default class Produits extends React.Component {
           // }
 
           
-    search = (motCle, categorie)=>{
-        this.getProduits(0, this.state.parPage, motCle, categorie);
+    search = (motCle, categorie, min, max)=>{
+        this.getProduits(0, this.state.parPage, motCle, categorie, min, max);
         this.getProduitsCount(motCle);
-        this.setState({motCle: motCle, categorie: categorie , currentPage: 0});
+        this.setState({motCle: motCle, categorie: categorie , min: min, max: max, currentPage: 0});
         this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
       }
       clearSearchWord = () =>{
