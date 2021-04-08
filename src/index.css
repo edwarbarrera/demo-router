@@ -3,8 +3,12 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  opacity:0.8;
+  background-image: url(https://c.pxhere.com/photos/51/6b/dark_gloomy_books_pages_paper_read_book_bound-1061076.jpg!d);
+  background-repeat: no-repeat; 
+  background-size: cover;
+  color: #fff;
+  font-weight: bold;
 }
 
 code {
@@ -12,30 +16,275 @@ code {
     monospace;
 }
 
+.App-header {
+  min-height: 10vh;
+  display: flex;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.liens {
+  color: black!important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+}
+
+.liens:hover {
+  box-shadow: 5px 5px 5px #156cb4;
+  }
+
+.panier {
+  color: black!important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+}
+
+.panier:hover {
+  box-shadow: 5px 5px 5px #156cb4;
+  }
+
+.connexion {
+  color: black!important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+}
+
+.connexion:hover {
+  box-shadow: 5px 5px 5px #156cb4;
+}
+
 .pagination {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   list-style: none;
   cursor: pointer;
+  background: rgba(155, 153, 153, 0.418);
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+  padding: 1em;
 }
 
 .pagination a {
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
-  border: 1px solid #6c7ac9;
-  color: #6c7ac9;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+  color: #000000;
+}
+
+.pagination a:hover{
+  color: #ffffff;
+  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
 }
 
 .pagination__link {
+  background: linear-gradient(#ffffffc9, #383b39a1);
   font-weight: bold;
 }
 
-.pagination__link--active a {
+.pagination__link--active a{
   color: #fff;
-  background: #6c7ac9;
 }
 
 .pagination__link--disabled a {
-  color: rgb(198, 197, 202);
-  border: 1px solid rgb(198, 197, 202);
+  color: rgb(255, 255, 255);
+  background: linear-gradient(#ffffffc9, #383b39a1);
+}
+
+#produits {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+
+}
+/* Chaque produit */
+#produits > section {
+  display: flex;
+  flex-wrap: wrap; /* pour passer à la ligne si nécessaire */
+  padding: 1em;
+  margin: 5px;
+  opacity: 0.99;
+  border-radius: 30px;
+  color: rgba(2, 2, 2, 0.8);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.473);
+  background: rgba(155, 153, 153, 0.418);
+}
+/* La partie à droite de chaque produit */
+#produits > section > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* espace entre les éléments */
+  padding: 1em;
+  max-width: 50%; /* pour éviter que ça s'étale trop, et aille à la ligne à cause du wrap */
+}
+/* Adaptation aux petits écrans mobiles */
+@media (max-width:480px) {
+  #produits > section > div {
+      max-width: 100%;
+  }
+  #produits > section > div > * {
+      padding: 1em 0;	/* pour séparer les 3 blocs de prix - description - boutons */
+  }
+}
+
+    
+.image {
+  border-radius: 5px;
+  height: 50%;
+  max-height: 300px;
+  align-items: flex-start;
+  align-self: center;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+}
+
+.Afficher-Button {
+color: black!important;
+text-transform: uppercase;
+text-decoration: none;
+background: linear-gradient(#ffffffc9, #383b39a1);
+padding: 5px;
+border-radius: 5px;
+border: none;
+transition: all 0.4s ease 0s;
+margin-right: 10px;
+box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+}
+
+.Afficher-Button:hover {
+  box-shadow: 5px 5px 5px rgba(7, 235, 56, 0.6);
+}
+
+.Modifier-Button {
+margin-top: 5px;
+color: black !important;
+text-transform: uppercase;
+text-decoration: none;
+background:linear-gradient(#d6e2e0, #3b3838);
+padding: 5px;
+border-radius: 5px;
+border: none;
+transition: all 0.4s ease 0s;
+margin-right: 10px;
+box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+}
+
+.Modifier-Button:hover {
+box-shadow: 5px 5px 5px #da920f;
+}
+
+.Delete-Button {    
+margin-top: 5px;
+color: black !important;
+text-transform: uppercase;
+text-decoration: none;
+background: linear-gradient(#d6e2e0, #3b3838);
+padding: 5px;
+border-radius: 5px;
+border: none;
+margin-right: 10px;
+box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+}
+
+.Delete-Button:hover {
+  box-shadow: 5px 5px 5px #da0f0f;
+}
+
+.Add-Button {
+font-size: 15px;
+color: black !important;
+text-transform: uppercase;
+text-decoration: none;
+background:linear-gradient(#d6e2e0, #3b3838);
+padding: 5px;
+border-radius: 5px;
+border: none;
+margin-right: 10px;
+box-shadow: 5px 5px 5px rgba(27, 27, 27, 0.6);
+}
+
+.Add-Button:hover {
+box-shadow: 5px 5px 5px #156cb4;
+}
+
+.recherche {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recherche > input {
+  border-radius: 5px;
+  margin-right: 5px;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+}
+
+.recherche > input:hover{
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(161, 159, 159, 0.753);
+}
+
+.recherche > input:focus{
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px rgba(161, 159, 159, 0.753);
+}
+
+.recherche > select{
+  border-radius: 5px;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+}
+
+.recherche > select:hover{
+  box-shadow: 5px 5px 5px rgba(161, 159, 159, 0.753);
+}
+
+.Annuler-Button{
+  color: black!important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+}
+
+.Annuler-Button:hover{
+  box-shadow: 5px 5px 5px #da0f0f;
+}
+
+.Rechercher-Button{
+  color: black!important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(#ffffffc9, #383b39a1);
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.4s ease 0s;
+  margin-right: 10px;
+  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.Rechercher-Button:hover{
+  box-shadow: 5px 5px 5px rgba(7, 235, 56, 0.6);
 }

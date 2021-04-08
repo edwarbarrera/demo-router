@@ -1,6 +1,4 @@
 import React from 'react';
-
-import './App.css';
 import {Link, Route} from 'react-router-dom';
 import Produits from './Produits';
 import Categories from './Categories';
@@ -72,16 +70,16 @@ class App extends React.Component{
     return (
       <div className="App">
         <header className="App-header">
-          <Link to="/produits?currentPage=0">Produits</Link>
-          <Link to="/categories">Categories</Link>
-          <Link to="/panier">Panier ({this.state.panier.length})</Link>
+          <Link to="/produits?currentPage=0"><button className="liens">Produits</button></Link>
+          <Link to="/categories"><button className="liens">Categories</button></Link>
+          <Link to="/panier"><button className="panier">Panier</button> ({this.state.panier.length})</Link>
           {(this.state.currentUser) && <div>
                                         <span>Vous êtes connecté entant que : {this.state.currentUser.username} | </span>
                                         <a href="/login" className="nav-link" onClick={this.logOut}>
-                                          Se déconnecter
+                                          <button className="connexion">Se déconnecter</button>
                                         </a>
                                       </div>}
-          {(!this.state.currentUser) && <Link to="/login">Se connecter</Link>}
+          {(!this.state.currentUser) && <Link to="/login"><button className="connexion">Se connecter</button></Link>}
           
         </header>
         <main>

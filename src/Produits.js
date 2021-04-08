@@ -222,7 +222,7 @@ export default class Produits extends React.Component {
             <React.Fragment>
               <section>
                 <div className="App-header">
-                    {(isEmploye && <Link to={this.props.match.url + '/create'}>Créer un produit</Link>)}
+                    {(isEmploye && <Link to={this.props.match.url + '/create'}><button className ="Add-Button">Créer un produit</button></Link>)}
                     
                     <SearchBar searchCallback={this.search} searchParPrixCallback={this.searchParPrix} annulerSearchCallback={this.clearSearchWord}annulerSearchParPrixCallback={this.clearSearchParPrix}/>
                 </div>
@@ -233,10 +233,10 @@ export default class Produits extends React.Component {
                    < Route path={this.props.match.path + '/edit/:id'} render={
                         (props)=> <ProduitForm {...props}  saveCallback={this.save} />
                     } />
+                    <Route path={this.props.match.path + '/:id'} component={FicheProduit} />
                     <Route path={this.props.match.path + '/:id'} render={
                         (props)=> <ProduitForm {...props}  saveCallback={this.save} />
                     } />
-                    <Route path={this.props.match.path + '/:id'} component={FicheProduit} />
                     <Route path={this.props.match.path + '/'} render={
                         (props)=> <ProduitListe {...props} 
                                         currentUser={this.props.currentUser}
