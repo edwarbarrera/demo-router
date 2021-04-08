@@ -4,7 +4,8 @@ import FicheProduit from './FicheProduit';
 import ProduitForm from './ProduitForm';
 import ProduitListe from './ProduitListe';
 import SearchBar from './SearchBar';
-import ProduitService from './ProduitService'
+import ProduitService from './ProduitService';
+import AuthService from './AuthService';
 export default class Produits extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +23,10 @@ export default class Produits extends React.Component {
         console.log(currentPage);
         this.setState({currentPage: currentPage});
         this.getProduits(currentPage, this.state.parPage, this.state.motCle);
+      }
+      setPerPage = (perPage)=>{
+        this.setState({perPage: perPage});
+        this.getProduits(this.state.currentPage, perPage, this.state.searchWord);
       }
 
       getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="")=>{ 

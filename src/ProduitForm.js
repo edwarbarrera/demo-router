@@ -1,5 +1,6 @@
 import React from 'react';
 import authHeader from './authHeader';
+import AuthService from './AuthService';
 
 export default class ProduitForm extends React.Component {
     constructor(props) {
@@ -165,6 +166,11 @@ export default class ProduitForm extends React.Component {
 
 
     componentDidMount() {
+        const currUser = AuthService.getCurrentUser();
+        const isEmploye = AuthService.isEmploye(currUser);
+        if (!isEmploye) {
+            this.props.history.push("/access_denied")
+        }
         const id = this.props.match.params.id;
         if (id) {
             fetch(`http://localhost:8080/api/public/produits/${id}`, {

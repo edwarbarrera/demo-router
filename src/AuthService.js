@@ -4,13 +4,13 @@ const API_URL = "http://localhost:8080/api/auth/";
 
 class AuthService {
   login(username, password) {
-    return axios//diff avec fetch la reponse et deja parsée en json
+    return axios
       .post(API_URL + "login", {
-        username :username ,
-        password:password
+        username: username,
+        password: password
       })
       .then(response => {
-        if (response.data.accessToken) {//data=> userDto
+        if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));
         }
         return response.data;
@@ -57,7 +57,10 @@ class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+    return JSON.parse(localStorage.getItem('user'));
+  }
+  isEmploye(user){
+    return user && user.roles && user.roles.includes("ROLE_EMPLOYE");
   }
 }
 
