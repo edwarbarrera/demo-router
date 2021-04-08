@@ -16,10 +16,11 @@ export default class ProduitListe extends React.Component {
     }
     render() {
         console.log(this.props);
+        let size = this.props.produits.length;
         const isEmploye = this.props.currentUser && this.props.currentUser.roles.includes("ROLE_EMPLOYE" &&  "ROLE_USER");
         return (
             <React.Fragment>
-                {!!this.props.motCle && (<div>{this.props.produitsCount} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
+                {!!this.props.motCle && (<div>{size} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
                 <ReactPaginate
                     previousLabel={"← Previous"}
                     nextLabel={"Next →"}
@@ -38,6 +39,7 @@ export default class ProduitListe extends React.Component {
                         {this.props.produits.map((produit) => {
                             return ( 
                             <section id="produits">
+                            <section>
                             <img className="image" src={produit.url_image}></img>
                                 <div><ul className="produits">
                                     <li>
@@ -49,13 +51,14 @@ export default class ProduitListe extends React.Component {
                                     </div>
                                     <div>
                                     <div>
-                                        <button onClick={()=>this.props.addToCart(produit)}>Ajouter au panier</button>
+                                        <button className="Ajouter-Button" onClick={()=>this.props.addToCart(produit)}>Ajouter au panier</button>
                                     </div>
                                         <Link to={this.props.match.url + '/'+produit.id_produit}><button  className="Afficher-Button">Afficher</button></Link>
                                         <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+produit.id_produit}><button className="Modifier-Button">Modifier</button></Link>
                                     <button className="Delete-Button" style={isEmploye ? {}: {display: "none" }}  onClick={() => this.props.deleteCallback(produit.id_produit)}>Supprimer</button>
                                     </div>
                                 </div>
+                            </section>
                             </section>)
                         })}
             </React.Fragment>
