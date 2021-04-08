@@ -19,7 +19,7 @@ export default class ProduitAffiche extends React.Component {
         }
     }
     deleteProduit = (produitId => {
-        fetch(`http://localhost:8080/produits/${produitId}`, {
+        fetch(`http://localhost:8080/api/employe/delete/produits/${produitId}`, {
             method: "DELETE", /*requete pour SUPPRIMER*/
 
         }).then((data) => data.json)
@@ -93,7 +93,7 @@ export default class ProduitAffiche extends React.Component {
       }
 
     componentDidMount = () => {
-        let promesse = fetch("http://localhost:8080/produits/");
+        let promesse = fetch("http://localhost:8080/api/public/produits/");
         promesse.then((data) => {
             console.log(data);
             return data.json()

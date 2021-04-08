@@ -1,5 +1,12 @@
 import React from 'react';
+<<<<<<< HEAD
 import authHeader from './authHeader';
+=======
+import AuthService from'./AuthService';
+
+
+
+>>>>>>> ed
 
 export default class ProduitForm extends React.Component {
     constructor(props) {
@@ -8,10 +15,10 @@ export default class ProduitForm extends React.Component {
             produit: {
                 id_produit: null,
                 nom: "",
-                quantite: "",
+                quantite: 0,
                 description: "",
                 url_image: "",
-                prix_actuel: "",
+                prix_actuel: 0,
                 categorie: {
                     id_categorie: 1,
                     libelle: ""
@@ -115,12 +122,13 @@ export default class ProduitForm extends React.Component {
         const produit = this.state.produit || {};
         return (
             <React.Fragment>
+                <section>
                 <div className="add-box">
                     <h2>Ajouter un produit</h2>
                     <form>
                         <div className="champ" style={edit ? {} : { display: 'none' }}></div>
 
-                        <div> <input name="id_produit" readOnly value={produit.id_produit} /></div>
+                        <div> <input name="id_produit" readOnly value={produit.id_produit ? produit.id : 0} /></div>
                         {/*value  avec le statte du this product permet de preremplir le formulaire*/}
                         <div>
                             <input type="text" name="nom" value={produit.nom} placeholder="nom" onChange={this.handleChange} />
@@ -140,13 +148,21 @@ export default class ProduitForm extends React.Component {
 
                         <div>
 
-                            categorie : <select name="categorie" id="" onChange={this.handleChange}>
+                            categorie : <select name="categorie" id="" onChange={this.handleChange} defaultValue={produit.categorie.id || ""}>
                                 {this.state.categories.map(cat => {
+<<<<<<< HEAD
                                     const selected = cat.id_categorie === produit.categorie.id_categorie ? { selected: "selected" } : {};
                                     return <option 
                                     key={cat.id_categorie} 
                                     value={cat.id_categorie}
                                     // {...selected}
+=======
+                                   //const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
+                                    return <option 
+                                    key={cat.id_categorie} 
+                                    value={cat.id_categorie}
+                                     //{...selected}
+>>>>>>> ed
                                     >{cat.libelle}</option>
                                 })}
                             </select>
@@ -159,12 +175,14 @@ export default class ProduitForm extends React.Component {
 
                     </form>
                 </div>
+                </section>
             </React.Fragment>
         );
     }
 
 
     componentDidMount() {
+<<<<<<< HEAD
         const id = this.props.match.params.id;
         if (id) {
             fetch(`http://localhost:8080/api/public/produits/${id}`, {
@@ -172,6 +190,19 @@ export default class ProduitForm extends React.Component {
                 headers: {
                     'Authorization': authHeader()
                   }
+=======
+         // vérifier l'autorisation
+         const currUser = AuthService.getCurrentUser();
+         const isEmploye = AuthService.isEmploye(currUser);
+         if (!isEmploye) {
+             this.props.history.push("/access_denied")
+         }
+        const id = this.props.match.params.id;
+        if (id) {
+            fetch(`http://localhost:8080/api/public/produits/${id}`, {
+                method: "GET"
+
+>>>>>>> ed
             })
                 .then((data) => {
                     console.log(data);
@@ -184,8 +215,8 @@ export default class ProduitForm extends React.Component {
                     })
                 })
         }
-
-        fetch(`http://localhost:8080/categories`, {
+//get categories
+        fetch(`http://localhost:8080/categories/`, {
             method: "GET"
         })
             .then((data) => {
