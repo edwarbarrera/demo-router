@@ -104,9 +104,24 @@ export default class Produits extends React.Component {
               alert(error.message)}
           })
         }
+        else{
+          ProduitService.modifProduit(produit).then((response)=>{
+            console.log("Produits/modifProduit -> response : "+response.data);
+            this.getProduitsCount();
+            this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
+            this.setCurrentPage(this.state.pageCount-1)
+          }, (error)=>{
+            console.log("Produits/modifProduit -> error : " +error);
+            if (error.response) {
+              if (error.response.status === 403) {
+                alert("Accès refusé : Connectez-vous en tant qu'Employé pour modifier un produit")
+                this.props.history.push(`/login`)
+              }
+            }
+          })
+          } 
         }
-
-      //  delete = (produitId)=>{//productId = 2 => products=[1,3]
+        
           delete = (id_produit)=>{
             ProduitService.deleteProduit(id_produit).then((response)=>{
               console.log("Produits/deleteProduit -> response : "+response.data);
