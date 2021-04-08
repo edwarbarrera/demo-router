@@ -34,41 +34,6 @@ export default class ProduitListe extends React.Component {
                     activeClassName={"pagination__link--active"}
                     
                 />
-                {/* <table>
-                    <thead>
-                        <tr> 
-                             <th>image</th>
-                            <th>id</th>
-                            <th>nom</th>
-                            <th>prix</th>
-                            <th>cat nom</th>
-                            <th>cat id</th>
-                            
-                            
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.produits.map((p) => {
-                            return (<tr key={p.id_produit}> 
-                            <img src={p.url_image} alt="" width="50" height="50" />
-                                <td>{p.id_produit}</td>
-                                <td>{p.nom}</td>
-                                <td>{p.prix_actuel}</td>
-                                <td>{p.categorie.libelle}</td>
-                                <td>{p.categorie.id_categorie}</td>
-                                
-                                <td>
-                                    <Link to={this.props.match.url + '/'+p.id_produit}><button className="Afficher-Button">Afficher</button></Link>
-                                    <button onClick={()=>this.props.addToCart(p)}>Ajouter au panier</button>
-                                    <Link style={isEmploye ? {}: {}} to={this.props.match.url + '/edit/'+p.id_produit}><button className="Modifier-Button">Modifier</button></Link>
-                                    <button className="Delete-Button"  style={isEmploye ? {}: {}}  onClick={() => this.props.deleteCallback(p.id_produit)}>Supprimer</button>
-                                    
-                                </td>
-                            </tr>)
-                        })}
-                    </tbody>
-                </table> */}
 
                         {this.props.produits.map((produit) => {
                             return ( 

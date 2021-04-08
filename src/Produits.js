@@ -18,7 +18,7 @@ export default class Produits extends React.Component {
             pageCount: 1,
             motCle: "",
             min:0,
-            max:1000,
+            max:50,
             categorie:0
 
 
@@ -30,8 +30,8 @@ export default class Produits extends React.Component {
         this.getProduits(currentPage, this.state.parPage, this.state.motCle);
       }
 
-      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="", categorie=this.state.categorie)=>{ 
-        ProduitService.getProduits(numeroPage, parPage, motCle, categorie).then((response)=>{
+      getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="", categorie=this.state.categorie, min=this.state.min, max=this.state.max)=>{ 
+        ProduitService.getProduits(numeroPage, parPage, motCle, categorie, min, max).then((response)=>{
             console.log(response.data);
             this.setState({produits: response.data})
           }, (error)=>{
@@ -88,18 +88,6 @@ export default class Produits extends React.Component {
         //ajout d'un nouveau produit
         console.log(produit);
         if (!produit.id_produit) {
-        //     fetch("http://localhost:8080/produits/create", {
-        //     method: "POST",
-        //     headers: {"Content-type": "application/json"},
-        //     body: JSON.stringify(produit)
-        //   })
-        //   .then((data)=>data.json())
-        //   .then((res)=>{
-        //     this.setState({produits: this.state.produits.concat(res)})
-        //     console.log(res)
-        //     this.props.history.push("/produits")
-        //   })
-        // }
         ProduitService.createProduit(produit).then((response)=>{
             console.log("Produits/createProduit -> response : "+response.data);
             this.getProduitsCount();
@@ -116,43 +104,6 @@ export default class Produits extends React.Component {
               alert(error.message)}
           })
         }
-        
-          // ProduitService.modifProduit(produit).then((response)=>{
-          //   console.log("Produits/modifProduit -> response : "+response.data);
-          //   const res = response.data;
-          //   this.setState({
-          //     produits: this.state.produits.map((p)=> p.id === produit.id_produit ? res : p)
-          // })
-          //   this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
-          //   //this.setCurrentPage(this.state.pageCount-1)
-          // }, (error)=>{
-          //   console.log("Produits/modifProduit -> error : " +error);
-          //   if (error.response) {
-          //     if (error.response.status === 403) {
-          //       alert("Accès refusé : Connectez-vous en tant qu'Employé pour modifier un produit")
-          //       this.props.history.push(`/login`)
-          //     }
-          //   }
-         // })
-            // fetch(`http://localhost:8080/api/employe/produits/edit`, {//modifie produit si il exite deja
-            //   method: "PUT",
-            //   headers: {"Content-type": "application/json"},
-            //   body: JSON.stringify(produit)
-            // })
-            // .then((data)=>data.json())
-            // .then((res)=> {
-            //     this.setState(
-            //       {
-            //       produits: this.state.produits.map((p)=> p.id === produit.id_produit ? res : p)
-            //       }
-            //       )
-            //       this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${this.state.motCle}`)}
-            //   )
-           /*  ProduitService.getProduits().then((response)=>{
-                console.log();
-                this.setState({produits: res.data})
-            }, (error)=>{})**/
-           
         }
 
       //  delete = (produitId)=>{//productId = 2 => products=[1,3]
@@ -172,44 +123,15 @@ export default class Produits extends React.Component {
               }
             })
             }
-          //   fetch(`http://localhost:8080/api/employe/delete/produits/${produitId}`, {
-          //     method: "DELETE"
-          //   })
-          //   .then((data)=>{
-          //       console.log(data);
-          //       if (data.status === 200) {
-          //           this.setState(
-          //               {produits : 
-          //                 this.state.produits.filter((produit)=> produit.id !== produitId)})
-          //       }
-          //       else{
-          //           alert("Opération échouée!")
-          //       }
-                
-          //   })
-          // }
-
           
-    search = (motCle, categorie)=>{
-        this.getProduits(0, this.state.parPage, motCle, categorie);
+    search = (motCle, categorie, min, max)=>{
+        this.getProduits(0, this.state.parPage, motCle, categorie, min, max);
         this.getProduitsCount(motCle);
-        this.setState({motCle: motCle, categorie: categorie , currentPage: 0});
+        this.setState({motCle: motCle, categorie: categorie, min: min, max: max, currentPage: 0});
         this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
       }
       clearSearchWord = () =>{
         this.setState({motCle: ""});
-        this.props.history.push(`/produits?currentPage=0`);    
-        this.getProduits();
-        this.getProduitsCount();
-      }
-      searchParPrix = (min,max)=>{
-        this.findAllProduitsByPrix(0, this.state.parPage, min, max);
-        this.getProduitsCountParPrix(min, max);
-        this.setState({min: min,max:max, currentPage: 0});
-        this.props.history.push(`/produits?currentPage=${this.state.currentPage}&min=${min}&max=${max}`);    
-      }
-      clearSearchParPrix = () =>{
-        this.setState({min:0, max:0});
         this.props.history.push(`/produits?currentPage=0`);    
         this.getProduits();
         this.getProduitsCount();

@@ -6,7 +6,7 @@ export default class SearchBar extends React.Component {
         this.state = {
             motCle: "",
             min:0,
-            max:0,
+            max:50,
             id_categorie:0
         }
     }
@@ -18,27 +18,20 @@ export default class SearchBar extends React.Component {
     search = (evt)=>{
       let motCle = this.state.motCle.trim();
       let categorie=this.state.id_categorie;
+      let min = this.state.min;
+      let max = this.state.max;
       console.log(categorie);
      // if(motCle.length > 0){
-        this.props.searchCallback(motCle.toLowerCase(), categorie);
+        this.props.searchCallback(motCle.toLowerCase(), categorie, min, max);
       //}
     }
    
     annuler = ()=>{
       this.setState((state)=>state.motCle = "")
+      this.setState((state)=>state.categorie = 0)
+      this.setState((state)=>state.min = 0)
+      this.setState((state)=>state.max = 50)
       this.props.annulerSearchCallback();
-    }
-    searchParPrix = (evt)=>{
-      let min= this.state.min;
-      let max=this.state.max;
-      if(min >= 0 && max<=1000){
-        this.props.searchParPrixCallback(min,max);
-      }
-    }
-    annulerParPrix = ()=>{
-      this.setState((state)=>state.min =0)
-      this.setState((state)=>state.max =0 )
-      this.props.annulerSearchParPrixCallback();
     }
 
 
@@ -54,14 +47,10 @@ export default class SearchBar extends React.Component {
             <option value="2">informatique</option>
             <option value="3">manga</option>
           </select>
-          <button className="Rechercher-Button" onClick={this.search}>Rechercher</button>
-          <button className="Annuler-Button" onClick={this.annuler}>Annuler</button>
-        </div>
-        <div>
           <input type="number" name="min"placeholder="prix minimun" onChange={this.handleChange} value={this.state.min}/>
           <input type="number" name="max"placeholder="prix maximun" onChange={this.handleChange} value={this.state.max}/>
-          <button onClick={this.searchParPrix}>Rechercher par prix</button>
-          <button onClick={this.annulerParPrix}>Annuler par prix</button>
+          <button className="Rechercher-Button" onClick={this.search}>Rechercher</button>
+          <button className="Annuler-Button" onClick={this.annuler}>Annuler</button>
         </div>
         </React.Fragment>)
     }
