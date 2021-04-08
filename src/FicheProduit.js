@@ -11,15 +11,15 @@ export default class FicheProduit extends React.Component {
             produitNul:false,
             id_incorrect:false,
             produit: {
-                id_produit : "",
+                id_produit : 0,
                 nom : "",
-                quantite : "",
+                quantite : 0,
                 description : "",
                 url_image : "",
-                id_categorie : "",
-                prix_actuel : "",
+                id_categorie : 0,
+                prix_actuel : 0,
                 categorie:{
-                    id_categorie: "",
+                    id_categorie: 0,
                     libelle: ""
                 }
                 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import AuthService from'./AuthService';
 
 
 
@@ -8,14 +9,14 @@ export default class ProduitForm extends React.Component {
         super(props);
         this.state = {
             produit: {
-                id_produit: "",
+                id_produit: null,
                 nom: "",
-                quantite: "",
+                quantite: 0,
                 description: "",
                 url_image: "",
-                prix_actuel: "",
+                prix_actuel: 0,
                 categorie: {
-                    id_categorie: "",
+                    id_categorie: 1,
                     libelle: ""
                 }
             },
@@ -121,7 +122,7 @@ export default class ProduitForm extends React.Component {
                     <form>
                         <div className="champ" style={edit ? {} : { display: 'none' }}></div>
 
-                        <div> <input name="id_produit" readOnly value={produit.id_produit} /></div>
+                        <div> <input name="id_produit" readOnly value={produit.id_produit ? produit.id : 0} /></div>
                         {/*value  avec le statte du this product permet de preremplir le formulaire*/}
                         <div>
                             <input type="text" name="nom" value={produit.nom} placeholder="nom" onChange={this.handleChange} />
@@ -138,9 +139,9 @@ export default class ProduitForm extends React.Component {
 
                         <div>
 
-                            categorie : <select name="categorie" id="" onChange={this.handleChange} defaultValue="">
+                            categorie : <select name="categorie" id="" onChange={this.handleChange} defaultValue={produit.categorie.id || ""}>
                                 {this.state.categories.map(cat => {
-                                   const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
+                                   //const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
                                     return <option 
                                     key={cat.id_categorie} 
                                     value={cat.id_categorie}
@@ -163,6 +164,12 @@ export default class ProduitForm extends React.Component {
 
 
     componentDidMount() {
+         // vérifier l'autorisation
+         const currUser = AuthService.getCurrentUser();
+         const isEmploye = AuthService.isEmploye(currUser);
+         if (!isEmploye) {
+             this.props.history.push("/access_denied")
+         }
         const id = this.props.match.params.id;
         if (id) {
             fetch(`http://localhost:8080/api/public/produits/${id}`, {
@@ -180,7 +187,7 @@ export default class ProduitForm extends React.Component {
                     })
                 })
         }
-
+//get categories
         fetch(`http://localhost:8080/categories/`, {
             method: "GET"
         })

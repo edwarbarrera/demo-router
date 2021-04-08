@@ -12,12 +12,22 @@ class ProduitService {
     return axios.post(API_URL + '/employe/produits/create', 
                 produit, { headers: authHeader() });
   }
-  getAllProduitsByPrix(numeroPage, parPage, min, max) {
-    return axios.get(API_URL + `/public/produits/recherchePrix?numeroPage=${numeroPage}&parPage=${parPage}&min=${min}&max=${max}`);
+  findAllProduitsByPrix(numeroPage, parPage, min, max) {
+    return axios.get(API_URL + `/public/produits/rechercheParPrix?numeroPage=${numeroPage}&parPage=${parPage}&min=${min}&max=${max}`);
   }
-  /* getAdminBoard() {
+  modifProduit(produit) {
+    console.log("ProduitService -> modifProduit");
+    return axios.put(API_URL + '/employe/produits/edit/' +produit.id_produit, 
+                produit, { headers: authHeader() });
+  }
+  deleteProduit(id_produit) {
+    console.log("ProduitService -> deleteProduit");
+    return axios.delete(API_URL + '/employe/produits/delete/' +id_produit, 
+                 { headers: authHeader() });
+  }
+   getAdminBoard() {
     return axios.get(API_URL + 'gerant', { headers: authHeader() });
-  } */
+  }
 }
 
 export default new ProduitService();

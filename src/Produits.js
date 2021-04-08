@@ -5,6 +5,7 @@ import ProduitForm from './ProduitForm';
 import ProduitListe from './ProduitListe';
 import SearchBar from './SearchBar';
 import ProduitService from './ProduitService'
+import AuthService from './AuthService';
 export default class Produits extends React.Component {
     constructor(props) {
         super(props);
@@ -17,7 +18,8 @@ export default class Produits extends React.Component {
             pageCount: 1,
             motCle: "",
             min:0,
-            max:1000
+            max:1000,
+            //categorie:""
 
 
         }
@@ -36,8 +38,8 @@ export default class Produits extends React.Component {
             console.log(error);
           })
         }
-        getAllProduitsByPrix=(numeroPage=this.state.currentPage, parPage=this.state.parPage, min="", max="")=>{ 
-          ProduitService.getProduits(numeroPage, parPage, min,max).then((response)=>{
+        findAllProduitsByPrix=(numeroPage=this.state.currentPage, parPage=this.state.parPage, min=this.state.min, max=this.state.max)=>{ 
+          ProduitService.findAllProduitsByPrix(numeroPage, parPage, min,max).then((response)=>{
               console.log(response.data);
               this.setState({produits: response.data})
             }, (error)=>{
@@ -62,7 +64,7 @@ export default class Produits extends React.Component {
                   )
                 })
           }
-          getProduitsCountParPrix = (min="",max="")=>{
+          getProduitsCountParPrix = (min={},max={})=>{
             fetch(`http://localhost:8080/api/public/countParPrix?min=${min}&max=${max}`, {
                   method: "GET"
                 })
@@ -110,49 +112,82 @@ export default class Produits extends React.Component {
                 alert("Accès refusé : Connectez-vous en tant qu'Employé pour créer un produit")
                 this.props.history.push(`/login`)
               }
-            }
+            }else{
+              alert(error.message)}
           })
         }
-        else{
-            fetch(`http://localhost:8080/api/employe/produits/edit`, {//modifie produit si il exite deja
-              method: "PUT",
-              headers: {"Content-type": "application/json"},
-              body: JSON.stringify(produit)
-            })
-            .then((data)=>data.json())
-            .then((res)=> {
-                this.setState(
-                  {
-                  produits: this.state.produits.map((p)=> p.id === produit.id_produit ? res : p)
-                  }
-                  )
-                  this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${this.state.motCle}`)}
-              )
+        
+          // ProduitService.modifProduit(produit).then((response)=>{
+          //   console.log("Produits/modifProduit -> response : "+response.data);
+          //   const res = response.data;
+          //   this.setState({
+          //     produits: this.state.produits.map((p)=> p.id === produit.id_produit ? res : p)
+          // })
+          //   this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
+          //   //this.setCurrentPage(this.state.pageCount-1)
+          // }, (error)=>{
+          //   console.log("Produits/modifProduit -> error : " +error);
+          //   if (error.response) {
+          //     if (error.response.status === 403) {
+          //       alert("Accès refusé : Connectez-vous en tant qu'Employé pour modifier un produit")
+          //       this.props.history.push(`/login`)
+          //     }
+          //   }
+         // })
+            // fetch(`http://localhost:8080/api/employe/produits/edit`, {//modifie produit si il exite deja
+            //   method: "PUT",
+            //   headers: {"Content-type": "application/json"},
+            //   body: JSON.stringify(produit)
+            // })
+            // .then((data)=>data.json())
+            // .then((res)=> {
+            //     this.setState(
+            //       {
+            //       produits: this.state.produits.map((p)=> p.id === produit.id_produit ? res : p)
+            //       }
+            //       )
+            //       this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${this.state.motCle}`)}
+            //   )
            /*  ProduitService.getProduits().then((response)=>{
                 console.log();
                 this.setState({produits: res.data})
             }, (error)=>{})**/
-          } 
+           
         }
 
-        delete = (produitId)=>{//productId = 2 => products=[1,3]
-          
-            fetch(`http://localhost:8080/api/employe/delete/produits/${produitId}`, {
-              method: "DELETE"
+      //  delete = (produitId)=>{//productId = 2 => products=[1,3]
+          delete = (id_produit)=>{
+            ProduitService.deleteProduit(id_produit).then((response)=>{
+              console.log("Produits/deleteProduit -> response : "+response.data);
+              this.getProduitsCount();
+              this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
+              this.setCurrentPage(this.state.pageCount-1)
+            }, (error)=>{
+              console.log("Produits/createProduit -> error : " +error);
+              if (error.response) {
+                if (error.response.status === 403) {
+                  alert("Accès refusé : Connectez-vous en tant qu'Employé pour supprimer un produit")
+                  this.props.history.push(`/login`)
+                }
+              }
             })
-            .then((data)=>{
-                console.log(data);
-                if (data.status === 200) {
-                    this.setState(
-                        {produits : 
-                          this.state.produits.filter((produit)=> produit.id !== produitId)})
-                }
-                else{
-                    alert("Opération échouée!")
-                }
+            }
+          //   fetch(`http://localhost:8080/api/employe/delete/produits/${produitId}`, {
+          //     method: "DELETE"
+          //   })
+          //   .then((data)=>{
+          //       console.log(data);
+          //       if (data.status === 200) {
+          //           this.setState(
+          //               {produits : 
+          //                 this.state.produits.filter((produit)=> produit.id !== produitId)})
+          //       }
+          //       else{
+          //           alert("Opération échouée!")
+          //       }
                 
-            })
-          }
+          //   })
+          // }
 
           
     search = (motCle)=>{
@@ -168,32 +203,36 @@ export default class Produits extends React.Component {
         this.getProduitsCount();
       }
       searchParPrix = (min,max)=>{
-        this.getProduits(0, this.state.parPage, min, max);
+        this.findAllProduitsByPrix(0, this.state.parPage, min, max);
         this.getProduitsCountParPrix(min, max);
         this.setState({min: min,max:max, currentPage: 0});
         this.props.history.push(`/produits?currentPage=${this.state.currentPage}&min=${min}&max=${max}`);    
       }
       clearSearchParPrix = () =>{
-        this.setState({min: "", max:""});
+        this.setState({min:0, max:0});
         this.props.history.push(`/produits?currentPage=0`);    
         this.getProduits();
         this.getProduitsCount();
       }
 
     render() {
-        console.log(this.props.match+ "is employE?");
-        const isEmploye = this.props.currentUser && this.props.currentUser.roles && this.props.currentUser.roles.includes("ROLE_EMPLOYE");
+      console.log(this.props.match);
+      const isEmploye = AuthService.isEmploye(this.props.currentUser);
         return (
             <React.Fragment>
                 <div className="App-header">
-                    {(isEmploye && <Link to={this.props.match.url + '/employe/produits/create'}>Créer un produit</Link>)}
-                    <SearchBar searchCallback={this.search} annulerSearch={this.clearSearchWord}/>
+                    {(isEmploye && <Link to={this.props.match.url + '/create'}>Créer un produit</Link>)}
+                    
+                    <SearchBar searchCallback={this.search} searchParPrixCallback={this.searchParPrix} annulerSearchCallback={this.clearSearchWord}annulerSearchParPrixCallback={this.clearSearchParPrix}/>
                 </div>
                 <Switch>
-                    <Route path={this.props.match.path + '/employe/produits/create'} render={
+                    <Route path={this.props.match.path + '/create'} render={
                         (props)=> <ProduitForm {...props}  saveCallback={this.save} />
                     } />
-                    <Route path={this.props.match.path + '/employe/produits/edit/:id'} render={
+                   < Route path={this.props.match.path + '/edit/:id'} render={
+                        (props)=> <ProduitForm {...props}  saveCallback={this.save} />
+                    } />
+                    <Route path={this.props.match.path + '/:id'} render={
                         (props)=> <ProduitForm {...props}  saveCallback={this.save} />
                     } />
                     <Route path={this.props.match.path + '/:id'} component={FicheProduit} />
@@ -212,7 +251,8 @@ export default class Produits extends React.Component {
                                         parPage={this.state.parPage} 
                                         pageCount={this.state.pageCount} 
                                         setCurrentPage={this.setCurrentPage} 
-                                        deleteCallback={this.delete}  />
+                                        deleteCallback={this.delete}  
+                                        addToCart={this.props.addToCart}  />
                     } />
                 </Switch>
                 

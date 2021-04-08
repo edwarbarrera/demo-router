@@ -40,8 +40,11 @@ export default class ProduitListe extends React.Component {
                              <th>image</th>
                             <th>id</th>
                             <th>nom</th>
-                            <th>cat id</th>
+                            <th>prix</th>
                             <th>cat nom</th>
+                            <th>cat id</th>
+                            
+                            
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,13 +54,15 @@ export default class ProduitListe extends React.Component {
                             <img src={p.url_image} alt="" width="50" height="50" />
                                 <td>{p.id_produit}</td>
                                 <td>{p.nom}</td>
-                                <td>{p.categorie.id_categorie}</td>
+                                <td>{p.prix_actuel}</td>
                                 <td>{p.categorie.libelle}</td>
+                                <td>{p.categorie.id_categorie}</td>
                                 
                                 <td>
                                     <Link to={this.props.match.url + '/'+p.id_produit}>Afficher</Link>
-                                    <Link style={isEmploye ? {}: {}} to={this.props.match.url + '/edit/'+p.id}>Modifier</Link>
-                                    <button style={isEmploye ? {}: {}}  onClick={() => this.props.deleteCallback(p.id)}>Supprimer</button>
+                                    <button onClick={()=>this.props.addToCart(p)}>Ajouter au panier</button>
+                                    <Link style={isEmploye ? {}: {}} to={this.props.match.url + '/edit/'+p.id_produit}>Modifier</Link>
+                                    <button style={isEmploye ? {}: {}}  onClick={() => this.props.deleteCallback(p.id_produit)}>Supprimer</button>
                                     
                                 </td>
                             </tr>)
@@ -75,6 +80,8 @@ export default class ProduitListe extends React.Component {
         search = search.split("&");
         let currPage = 0;
         let motCle = "";
+        let min=0;
+        let max=0;
         for (let index = 0; index < search.length; index++) {
             let temp = search[index].split("=");
             if (index === 0) {
@@ -92,6 +99,11 @@ export default class ProduitListe extends React.Component {
             this.props.search(motCle);
             this.props.history.push(this.props.match.url + "?currentPage="+currPage + "&motCle="+ motCle);
         }
+       else if (this.props.prix_actuel>= min && this.props.prix_actuel<=max){
+        this.props.searchParPrix(min, max);
+        this.props.history.push(this.props.match.url +"?currentPage="+currPage + "&min="+ min+ "&max="+max);
+       }
+
         else{
             this.props.setCurrentPage(parseInt(currPage));
             this.props.history.push(this.props.match.url + "?currentPage="+currPage)
