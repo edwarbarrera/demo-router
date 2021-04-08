@@ -60,14 +60,9 @@ export default class ProduitListe extends React.Component {
                                 
                                 <td>
                                     <Link to={this.props.match.url + '/'+p.id_produit}>Afficher</Link>
-<<<<<<< HEAD
-                                    <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+p.id_produit}>Modifier</Link>
-                                    <button style={isEmploye ? {}: {display: "none" }}  onClick={() => this.props.deleteCallback(p.id_produit)}>Supprimer</button>
-=======
                                     <button onClick={()=>this.props.addToCart(p)}>Ajouter au panier</button>
                                     <Link style={isEmploye ? {}: {}} to={this.props.match.url + '/edit/'+p.id_produit}>Modifier</Link>
                                     <button style={isEmploye ? {}: {}}  onClick={() => this.props.deleteCallback(p.id_produit)}>Supprimer</button>
->>>>>>> ed
                                     
                                 </td>
                             </tr>)

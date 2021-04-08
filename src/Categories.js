@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Route} from 'react-router-dom';
-=======
 import { Route } from 'react-router-dom';
->>>>>>> ed
 import CategorieForm from './CategorieForm';
 
 

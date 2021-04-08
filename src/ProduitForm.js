@@ -1,12 +1,8 @@
 import React from 'react';
-<<<<<<< HEAD
-import authHeader from './authHeader';
-=======
 import AuthService from'./AuthService';
 
 
 
->>>>>>> ed
 
 export default class ProduitForm extends React.Component {
     constructor(props) {
@@ -150,19 +146,11 @@ export default class ProduitForm extends React.Component {
 
                             categorie : <select name="categorie" id="" onChange={this.handleChange} defaultValue={produit.categorie.id || ""}>
                                 {this.state.categories.map(cat => {
-<<<<<<< HEAD
-                                    const selected = cat.id_categorie === produit.categorie.id_categorie ? { selected: "selected" } : {};
-                                    return <option 
-                                    key={cat.id_categorie} 
-                                    value={cat.id_categorie}
-                                    // {...selected}
-=======
                                    //const selected = cat.id === produit.categorie.id_categorie ? { selected: "selected" } : {};
                                     return <option 
                                     key={cat.id_categorie} 
                                     value={cat.id_categorie}
                                      //{...selected}
->>>>>>> ed
                                     >{cat.libelle}</option>
                                 })}
                             </select>
@@ -182,15 +170,6 @@ export default class ProduitForm extends React.Component {
 
 
     componentDidMount() {
-<<<<<<< HEAD
-        const id = this.props.match.params.id;
-        if (id) {
-            fetch(`http://localhost:8080/api/public/produits/${id}`, {
-                method: "GET",
-                headers: {
-                    'Authorization': authHeader()
-                  }
-=======
          // vérifier l'autorisation
          const currUser = AuthService.getCurrentUser();
          const isEmploye = AuthService.isEmploye(currUser);
@@ -202,7 +181,6 @@ export default class ProduitForm extends React.Component {
             fetch(`http://localhost:8080/api/public/produits/${id}`, {
                 method: "GET"
 
->>>>>>> ed
             })
                 .then((data) => {
                     console.log(data);

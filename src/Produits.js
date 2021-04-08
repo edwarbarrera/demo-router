@@ -17,14 +17,10 @@ export default class Produits extends React.Component {
             parPage: 10,
             pageCount: 1,
             motCle: "",
-<<<<<<< HEAD
-            categorie:""
-=======
             min:0,
             max:1000,
             categorie:0
 
->>>>>>> ed
 
         }
     }
@@ -35,11 +31,7 @@ export default class Produits extends React.Component {
       }
 
       getProduits=(numeroPage=this.state.currentPage, parPage=this.state.parPage, motCle="", categorie=this.state.categorie)=>{ 
-<<<<<<< HEAD
-        ProduitService.getProduits(numeroPage, parPage, motCle,categorie).then((response)=>{
-=======
         ProduitService.getProduits(numeroPage, parPage, motCle, categorie).then((response)=>{
->>>>>>> ed
             console.log(response.data);
             this.setState({produits: response.data})
           }, (error)=>{
@@ -68,8 +60,6 @@ export default class Produits extends React.Component {
                   this.setState({
                     produitsCount: res.produitsCompteur,
                     pageCount: Math.ceil(res.produitsCompteur / this.state.parPage)
-<<<<<<< HEAD
-=======
                     }
                   )
                 })
@@ -87,7 +77,6 @@ export default class Produits extends React.Component {
                   this.setState({
                     produitsCountParPrix: res.produitsCompteurParPrix,
                     pageCount: Math.ceil(res.produitsCompteurParPrix/ this.state.parPage)
->>>>>>> ed
                     }
                   )
                 })
@@ -127,25 +116,6 @@ export default class Produits extends React.Component {
               alert(error.message)}
           })
         }
-<<<<<<< HEAD
-        else{
-          ProduitService.modifProduit(produit).then((response)=>{
-            console.log("Produits/modifProduit -> response : "+response.data);
-            this.getProduitsCount();
-            this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
-            this.setCurrentPage(this.state.pageCount-1)
-          }, (error)=>{
-            console.log("Produits/modifProduit -> error : " +error);
-            if (error.response) {
-              if (error.response.status === 403) {
-                alert("Accès refusé : Connectez-vous en tant qu'Employé pour modifier un produit")
-                this.props.history.push(`/login`)
-              }
-            }
-          })
-
-            // fetch(`http://localhost:8080/api/employe/produits/edit/`, {//a rajouter id produit
-=======
         
           // ProduitService.modifProduit(produit).then((response)=>{
           //   console.log("Produits/modifProduit -> response : "+response.data);
@@ -165,7 +135,6 @@ export default class Produits extends React.Component {
           //   }
          // })
             // fetch(`http://localhost:8080/api/employe/produits/edit`, {//modifie produit si il exite deja
->>>>>>> ed
             //   method: "PUT",
             //   headers: {"Content-type": "application/json"},
             //   body: JSON.stringify(produit)
@@ -179,11 +148,6 @@ export default class Produits extends React.Component {
             //       )
             //       this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${this.state.motCle}`)}
             //   )
-<<<<<<< HEAD
-
-
-=======
->>>>>>> ed
            /*  ProduitService.getProduits().then((response)=>{
                 console.log();
                 this.setState({produits: res.data})
@@ -191,40 +155,6 @@ export default class Produits extends React.Component {
            
         }
 
-<<<<<<< HEAD
-        delete = (id_produit)=>{
-          ProduitService.deleteProduit(id_produit).then((response)=>{
-            console.log("Produits/deleteProduit -> response : "+response.data);
-            this.getProduitsCount();
-            this.props.history.push(`/produits?currentPage=${this.state.pageCount-1}&motCle=${this.state.motCle}`)
-            this.setCurrentPage(this.state.pageCount-1)
-          }, (error)=>{
-            console.log("Produits/createProduit -> error : " +error);
-            if (error.response) {
-              if (error.response.status === 403) {
-                alert("Accès refusé : Connectez-vous en tant qu'Employé pour supprimer un produit")
-                this.props.history.push(`/login`)
-              }
-            }
-          })
-          }
-      
-            // fetch(`http://localhost:8080/api/employe/produits/${produitId}`, {
-            //   method: "DELETE"
-            // })
-            // .then((data)=>{
-            //     console.log(data);
-            //     if (data.status === 200) {
-            //         this.setState(
-            //             {produits : 
-            //               this.state.produits.filter((produit)=> produit.id !== produitId)})
-            //     }
-            //     else{
-            //         alert("Opération échouée!")
-            //     }
-                
-            // })
-=======
       //  delete = (produitId)=>{//productId = 2 => products=[1,3]
           delete = (id_produit)=>{
             ProduitService.deleteProduit(id_produit).then((response)=>{
@@ -257,22 +187,14 @@ export default class Produits extends React.Component {
           //       }
                 
           //   })
->>>>>>> ed
           // }
 
           
     search = (motCle, categorie)=>{
         this.getProduits(0, this.state.parPage, motCle, categorie);
-<<<<<<< HEAD
-        console.log(categorie);
-        this.getProduitsCount(motCle);
-        this.setState({motCle: motCle, categorie: categorie , currentPage: 0});
-        this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}&categorie=${categorie}`);    
-=======
         this.getProduitsCount(motCle);
         this.setState({motCle: motCle, categorie: categorie , currentPage: 0});
         this.props.history.push(`/produits?currentPage=${this.state.currentPage}&motCle=${motCle}`);    
->>>>>>> ed
       }
       clearSearchWord = () =>{
         this.setState({motCle: ""});
@@ -294,15 +216,8 @@ export default class Produits extends React.Component {
       }
 
     render() {
-<<<<<<< HEAD
-        console.log(this.props.match);
-        console.log(this.state.produits);
-        const isEmploye = this.props.currentUser && this.props.currentUser.roles && this.props.currentUser.roles.includes("ROLE_EMPLOYE");
-       console.log("Produit -> Boolean isEmploye : "+isEmploye);
-=======
       console.log(this.props.match);
       const isEmploye = AuthService.isEmploye(this.props.currentUser);
->>>>>>> ed
         return (
             <React.Fragment>
               <section>
