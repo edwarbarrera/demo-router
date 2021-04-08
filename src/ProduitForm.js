@@ -118,6 +118,7 @@ export default class ProduitForm extends React.Component {
         const produit = this.state.produit || {};
         return (
             <React.Fragment>
+                <section>
                 <div className="add-box">
                     <h2>Ajouter un produit</h2>
                     <form>
@@ -162,6 +163,7 @@ export default class ProduitForm extends React.Component {
 
                     </form>
                 </div>
+                </section>
             </React.Fragment>
         );
     }
