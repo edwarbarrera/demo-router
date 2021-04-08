@@ -37,10 +37,10 @@ export default class ProduitLigne extends React.Component {
                         <div>{this.props.produit.description}</div>
                         <div>{this.props.produit.prix_actuel + " \u20AC"} </div>
                         <div>{this.props.produit.categorie.libelle}</div>
-                       {/*  <div>
+                       <div>
                             <button onClick={() => this.state.showForm(produit.id_produit)} > modifier</button>
                             <button onClick={() => this.props.deleteCallback(produit.id_produit)}>supprimer</button>
-                        </div> */}
+                        </div> 
                     </section>
 
                 </React.Fragment>

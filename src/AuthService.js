@@ -57,8 +57,9 @@ class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));
-  }
+    return JSON.parse(localStorage.getItem('user'));;
+    }
+    
   isEmploye(user){
     return user && user.roles && user.roles.includes("ROLE_EMPLOYE");
   }
