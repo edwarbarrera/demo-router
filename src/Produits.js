@@ -240,7 +240,6 @@ export default class Produits extends React.Component {
                     <Route path={this.props.match.path + '/:id'} render={
                         (props)=> <ProduitForm {...props}  saveCallback={this.save} />
                     } />
-                    <Route path={this.props.match.path + '/:id'} component={FicheProduit} />
                     <Route path={this.props.match.path + '/'} render={
                         (props)=> <ProduitListe {...props} 
                                         currentUser={this.props.currentUser}
