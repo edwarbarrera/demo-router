@@ -180,10 +180,8 @@ export default class ProduitForm extends React.Component {
         const id = this.props.match.params.id;
         if (id) {
             fetch(`http://localhost:8080/api/public/produits/${id}`, {
-                method: "GET",
-                headers: {
-                    'Authorization': authHeader()
-                  }
+                method: "GET"
+
             })
                 .then((data) => {
                     console.log(data);

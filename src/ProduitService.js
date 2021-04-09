@@ -4,12 +4,11 @@ import authHeader from './authHeader';
 const API_URL = 'http://localhost:8080/api';
 
 class ProduitService {
-  getProduits(numeroPage, parPage, motCle,categorie) {
-    return axios.get(API_URL + `/public/produits?numeroPage=${numeroPage}&parPage=${parPage}&motCle=${motCle}&categorie=${categorie}`);
+  getProduits(numeroPage, parPage, motCle,categorie, min, max) {
+    return axios.get(API_URL + `/public/produits?numeroPage=${numeroPage}&parPage=${parPage}&motCle=${motCle}&categorie=${categorie}&min=${min}&max=${max}`);
   }
   
   createProduit(produit) {
-    console.log("ProduitService -> createProduit");
     return axios.post(API_URL + '/employe/produits/create', 
                 produit, { headers: authHeader() });
   }

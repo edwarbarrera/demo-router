@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import { button } from 'react-validation/build/button';
+import './index.css';
 
 export default class ProduitListe extends React.Component {
     constructor(props) {
@@ -16,13 +16,14 @@ export default class ProduitListe extends React.Component {
     }
     render() {
         console.log(this.props);
+        let size = this.props.produits.length;
         const isEmploye = this.props.currentUser && this.props.currentUser.roles.includes("ROLE_EMPLOYE" &&  "ROLE_USER");
         return (
             <React.Fragment>
-                {!!this.props.motCle && (<div>{this.props.produitsCount} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
+                {!!this.props.motCle && (<div>{size} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
                 <ReactPaginate
-                    previousLabel={<button> {"← Previous"}</button>}
-                    nextLabel={<button>{"Next →"}</button>}
+                    previousLabel={"← Previous"}
+                    nextLabel={"Next →"}
                     initialSelected={this.props.currentPage}
                     forcePage={this.props.currentPage}
                     pageCount={this.props.pageCount}
@@ -34,41 +35,32 @@ export default class ProduitListe extends React.Component {
                     activeClassName={"pagination__link--active"}
                     
                 />
-                <table>
-                    <thead>
-                        <tr> 
-                             <th>image</th>
-                            <th>id</th>
-                            <th>nom</th>
-                            <th>prix</th>
-                            <th>cat nom</th>
-                            <th>cat id</th>
-                            
-                            
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.produits.map((p) => {
-                            return (<tr key={p.id_produit}> 
-                            <img src={p.url_image} alt="" width="50" height="50" />
-                                <td>{p.id_produit}</td>
-                                <td>{p.nom}</td>
-                                <td>{p.prix_actuel}</td>
-                                <td>{p.categorie.libelle}</td>
-                                <td>{p.categorie.id_categorie}</td>
-                                
-                                <td>
-                                    <Link to={this.props.match.url + '/'+p.id_produit}>Afficher</Link>
-                                    <button onClick={()=>this.props.addToCart(p)}>Ajouter au panier</button>
-                                    <Link style={isEmploye ? {}: {display:'none'}} to={this.props.match.url + '/edit/'+p.id_produit}>Modifier</Link>
-                                    <button style={isEmploye ? {}: {display:'none'}}  onClick={() => this.props.deleteCallback(p.id_produit)}>Supprimer</button>
-                                    
-                                </td>
-                            </tr>)
+
+                        {this.props.produits.map((produit) => {
+                            return ( 
+                            <section id="produits">
+                            <section>
+                            <img className="image" src={produit.url_image}></img>
+                                <div><ul className="produits">
+                                    <li>
+                                    <div><h2>{produit.nom} - {produit.prix_actuel}€</h2></div>
+                                    </li>
+                                    </ul>
+                                    <div>
+                                    {produit.description}
+                                    </div>
+                                    <div>
+                                    <div>
+                                        <button className="Ajouter-Button" onClick={()=>this.props.addToCart(produit)}>Ajouter au panier</button>
+                                    </div>
+                                        <Link to={this.props.match.url + '/'+produit.id_produit}><button  className="Afficher-Button">Afficher</button></Link>
+                                        <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+produit.id_produit}><button className="Modifier-Button">Modifier</button></Link>
+                                    <button className="Delete-Button" style={isEmploye ? {}: {display: "none" }}  onClick={() => this.props.deleteCallback(produit.id_produit)}>Supprimer</button>
+                                    </div>
+                                </div>
+                            </section>
+                            </section>)
                         })}
-                    </tbody>
-                </table>
             </React.Fragment>
 
         )

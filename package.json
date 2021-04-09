@@ -10,7 +10,10 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-paginate": "^7.1.2",
+<<<<<<< HEAD
     "react-router-dom": "^5.2.0",
+=======
+>>>>>>> de4b68024a1da53ff5a955ddc2a20f906d2bf8eb
     "react-scripts": "4.0.3",
     "react-validation": "^3.0.7",
     "validator": "^13.5.2",
