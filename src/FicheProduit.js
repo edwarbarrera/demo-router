@@ -26,7 +26,11 @@ export default class FicheProduit extends React.Component {
                 }
             }
         }
-    
+        addToCart = (evt) => {
+            evt.preventDefault();
+            this.props.addToCart(this.state.produit);
+            console.log(this.state.produit);
+        }
     
         render() {
             if (this.state.produitNul) {return <p>le produit n existe pas !</p>}
@@ -58,7 +62,7 @@ export default class FicheProduit extends React.Component {
                             Prix :  {this.state.produit.prix_actuel+" \u20AC"}
                             </div>
                             
-                            <button onClick={()=>this.props.addToCart(this.state.produit.id_produit)}>Ajouter au panier</button>
+                            <button onClick={this.state.produit.addToCart}>Ajouter au panier</button>
                           
                         </div>
                         <div id="message_produit">

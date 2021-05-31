@@ -21,7 +21,9 @@ let size=this.props.produits.length;
         return (
            
             <React.Fragment>
+                 <header class="App-header"></header>
                 {!!this.props.motCle && (<div>{size} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
+               
                 <ReactPaginate
                     previousLabel={<button> {"← Previous"}</button>}
                     nextLabel={<button>{"Next →"}</button>}
@@ -36,6 +38,7 @@ let size=this.props.produits.length;
                     activeClassName={"pagination__link--active"}
                     
                 /> 
+                
                  {this.props.produits.map((produit) => {
                             return ( 
                             <section id="produits">
@@ -51,7 +54,7 @@ let size=this.props.produits.length;
                                     </div>
                                     <div>
                                     <div>
-                                        <button onClick={()=>this.props.addToCart(produit)}>Ajouter au panier</button>
+                                         <button onClick={()=>this.props.addToCart(produit)}>Ajouter au panier</button> 
                                     </div>
                                         <Link to={this.props.match.url + '/'+produit.id_produit}><button  className="Afficher-Button">Afficher</button></Link>
                                         <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+produit.id_produit}><button className="Modifier-Button">Modifier</button></Link>

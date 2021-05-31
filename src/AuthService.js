@@ -41,6 +41,7 @@ class AuthService {
         }
         return response.data;
       });
+     
   }
   createEmploye(employe) {
     return axios
@@ -55,6 +56,7 @@ class AuthService {
         return response.data;
       });
   }
+
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;

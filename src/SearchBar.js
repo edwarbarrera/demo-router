@@ -46,6 +46,7 @@ export default class SearchBar extends React.Component {
     render(){
       return (
         <React.Fragment>
+          <header class="App-header">
         <div className="recherche">
           <input type="text" name="motCle" onChange={this.handleChange} value={this.state.motCle}/>
           <select name="id_categorie" value={this.state.id_categorie} onChange={this.handleChange}>
@@ -57,6 +58,7 @@ export default class SearchBar extends React.Component {
          
           </div>
           <div>
+            <label>Recherchez par prix</label>
           <input type="number" name="min"placeholder="prix minimun" onChange={this.handleChange} value={this.state.min}/>
           <input type="number" name="max"placeholder="prix maximun" onChange={this.handleChange} value={this.state.max}/>
           <button className="Rechercher-Button" onClick={this.search}>Rechercher</button>
@@ -64,6 +66,7 @@ export default class SearchBar extends React.Component {
           {/* <button onClick={this.searchParPrix}>Rechercher par prix</button>
           <button onClick={this.annulerParPrix}>Annuler par prix</button> */}
         </div>
+        </header>
         </React.Fragment>)
     }
   }

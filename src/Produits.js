@@ -254,7 +254,7 @@ export default class Produits extends React.Component {
                                         pageCount={this.state.pageCount} 
                                         setCurrentPage={this.setCurrentPage} 
                                         deleteCallback={this.delete}  
-                                        addToCart={this.props.addToCart}  />
+                                        addToCartCallback={this.addToCart}  />
                     } />
                 </Switch>
                 </section>
