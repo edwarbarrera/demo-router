@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import './index.css';
+import { button } from 'react-validation/build/button';
+
 
 export default class ProduitListe extends React.Component {
     constructor(props) {
@@ -16,13 +17,13 @@ export default class ProduitListe extends React.Component {
     }
     render() {
         console.log(this.props);
-let size=this.props.produits.length;
+//let size=this.props.produits.length;
         const isEmploye = this.props.currentUser && this.props.currentUser.roles.includes("ROLE_EMPLOYE" &&  "ROLE_USER");
         return (
            
             <React.Fragment>
                  <header class="App-header"></header>
-                {!!this.props.motCle && (<div>{size} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
+                {!!this.props.motCle && (<div>{this.props.produitsCount} produit(s) trouvés. Voici les résultats pour le mot-clé "{this.props.motCle}"</div>)}
                
                 <ReactPaginate
                     previousLabel={<button> {"← Previous"}</button>}
@@ -43,7 +44,7 @@ let size=this.props.produits.length;
                             return ( 
                             <section id="produits">
                                 <section>
-                            <img className="image" src={produit.url_image}></img>
+                            <img className="image" src={produit.url_image}alt={produit.description}></img>
                                 <div><ul className="produits">
                                     <li>
                                     <div><h2>{produit.nom} - {produit.prix_actuel}€</h2></div>
@@ -54,7 +55,7 @@ let size=this.props.produits.length;
                                     </div>
                                     <div>
                                     <div>
-                                         <button onClick={()=>this.props.addToCart(produit)}>Ajouter au panier</button> 
+     
                                     </div>
                                         <Link to={this.props.match.url + '/'+produit.id_produit}><button  className="Afficher-Button">Afficher</button></Link>
                                         <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+produit.id_produit}><button className="Modifier-Button">Modifier</button></Link>

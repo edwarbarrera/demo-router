@@ -5,8 +5,8 @@ body {
     sans-serif;
   opacity:0.8;
   background-image: url(https://c.pxhere.com/photos/51/6b/dark_gloomy_books_pages_paper_read_book_bound-1061076.jpg!d);
-  background-repeat: repeat; 
-  background-size: 100%;
+  background-repeat: no-repeat; 
+  background-size: cover;
   color: #fff;
   font-weight: bold;
 }
@@ -41,21 +41,6 @@ code {
   box-shadow: 5px 5px 5px #156cb4;
   }
 
-.panier {
-  color: black!important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: linear-gradient(#ffffffc9, #383b39a1);
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
-}
-
-.panier:hover {
-  box-shadow: 5px 5px 5px #156cb4;
-  }
-
 .connexion {
   color: black!important;
   text-transform: uppercase;
@@ -78,7 +63,7 @@ code {
   list-style: none;
   cursor: pointer;
   background: rgba(155, 153, 153, 0.418);
-  margin: 5px;
+  margin: auto;
   padding: 10px;
   border-radius: 10px;
   padding: 1em;
@@ -114,6 +99,7 @@ code {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+
 }
 /* Chaque produit */
 #produits > section {
@@ -145,9 +131,10 @@ code {
   }
 }
 
+    
 .image {
   border-radius: 5px;
-  height: 20%;
+  height: 50%;
   max-height: 300px;
   align-items: flex-start;
   align-self: center;
@@ -267,23 +254,6 @@ box-shadow: 5px 5px 5px #156cb4;
 .Annuler-Button:hover{
   box-shadow: 5px 5px 5px #da0f0f;
 }
-
-.Ajouter-Button{
-  color: black!important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: linear-gradient(#ffffffc9, #383b39a1);
-  padding: 5px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 5px 5px 5px rgba(155, 151, 151, 0.247);
-}
-
-.Ajouter-Button:hover{
-  box-shadow: 5px 5px 5px #156cb4;
-}
-
 
 .Rechercher-Button{
   color: black!important;

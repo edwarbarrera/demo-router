@@ -46,7 +46,7 @@ export default class SearchBar extends React.Component {
     render(){
       return (
         <React.Fragment>
-          <header class="App-header">
+        
         <div className="recherche">
           <input type="text" name="motCle" onChange={this.handleChange} value={this.state.motCle}/>
           <select name="id_categorie" value={this.state.id_categorie} onChange={this.handleChange}>
@@ -55,18 +55,18 @@ export default class SearchBar extends React.Component {
             <option value="2">informatique</option>
             <option value="3">manga</option>
           </select>
-         
-          </div>
-          <div>
-            <label>Recherchez par prix</label>
-          <input type="number" name="min"placeholder="prix minimun" onChange={this.handleChange} value={this.state.min}/>
-          <input type="number" name="max"placeholder="prix maximun" onChange={this.handleChange} value={this.state.max}/>
           <button className="Rechercher-Button" onClick={this.search}>Rechercher</button>
           <button className="Annuler-Button" onClick={this.annuler}>Annuler</button>
-          {/* <button onClick={this.searchParPrix}>Rechercher par prix</button>
-          <button onClick={this.annulerParPrix}>Annuler par prix</button> */}
+          </div>
+          
+          <div>
+          
+          <input type="number" name="min"placeholder="prix minimun" onChange={this.handleChange} value={this.state.min}/>
+          <input type="number" name="max"placeholder="prix maximun" onChange={this.handleChange} value={this.state.max}/>
+          <button onClick={this.searchParPrix}>Rechercher par prix</button>
+          <button onClick={this.annulerParPrix}>Annuler par prix</button>
         </div>
-        </header>
+       
         </React.Fragment>)
     }
   }
