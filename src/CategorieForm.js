@@ -3,7 +3,7 @@ import React from 'react';
 
 
 
-export default class ProduitForm extends React.Component {
+export default class CategorieForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

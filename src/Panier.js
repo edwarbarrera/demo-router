@@ -4,36 +4,34 @@ export default class Panier extends React.Component {
     constructor(props) {
         super(props);
     }
-    handleChange=(event, produitId)=>{
-      this.props.editCartItem(produitId, event.target.value);
+    handleChange=(event, id_produit)=>{
+      this.props.editCartItem(id_produit, event.target.value);
     }
     render() {
+        console.log("dans le panier",this.props.panier)
         return (
+           
             <React.Fragment>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>nom</th>
-                            {/* <th>prix</th> */}
-                            <th>quantité</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.panier.map((p) => {
-                            return (<tr key={p.id}> 
-                                <td>{p.id}</td>
-                                <td>{p.nom}</td>
-                                {/* <td>{p.prixUnitaire}</td> */}
-                                <td><input type="number" value={p.quantite} onChange={(e)=>this.handleChange(e, p.id)}/></td>
-                                <td>
-                                    <button onClick={() => this.props.deleteFromCart(p.id)}>Supprimer</button>
-                                </td>
-                            </tr>)
-                        })}
-                    </tbody>
-                </table>
+                <section id="produits">
+                    
+                    {this.props.panier.map((p) => {
+                        
+                        
+                        return (
+                            <section key={p.id_produit}>
+                                <div><img src={p.product.url_image} height="150" widht="150"/></div>
+                                <section id="NamePriceQuantity">
+                                    <div id="ProductName">{p.product.nom}</div>
+                                    <div id="Price">Prix à l'unité : {p.product. prix_actuel}&euro;<br/>
+                                                    Prix total : {p.product.prix_actuel*p.quantite}&euro;
+                                    </div>
+                                    <div id="Quantity">Quantite <input type="number" value={p.quantite} onChange={(e) => {(p.quantite<=0) ? this.props.deleteFromCart(p.id_produit) : this.handleChange(e, p.id_produit)}} /></div>
+                                </section>
+                                <div key={p.id_produit}><button id="DeleteProductCart" onClick={() => this.props.deleteFromCart(p.id_produit)}>Supprimer</button></div>
+                            </section>)
+                    }
+                    )}
+                </section>
                 <button onClick={this.props.deleteAllFromCart}>Vider le panier</button>
                 <button onClick={() => this.props.passerCommande(this.props.panier)}>Passer la commande</button>
             </React.Fragment>
@@ -41,6 +39,5 @@ export default class Panier extends React.Component {
         )
     }
     componentDidMount(){
-        
+    }   
     }
-}

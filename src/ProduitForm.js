@@ -33,6 +33,7 @@ export default class ProduitForm extends React.Component {
         evt.preventDefault();
         this.props.saveCallback(this.state.produit);
         console.log(this.state.produit);
+       
     }
     handleChange = (event) => {
         if (event.target.name === "categorie") {
@@ -46,70 +47,6 @@ export default class ProduitForm extends React.Component {
         else { this.setState((state) => state.produit[event.target.name] = event.target.value) }
     }
 
-
-    /*
-        // la double negation cree un boolean initié  a true par defaut undefined, nuul, false ou zero donne un boolean false 
-    
-        handleChange = (evt) => {
-            console.log("evt:"+evt);
-            evt.persist();
-            let field = evt.target.name;
-            let value = evt.target.value;
-            this.setState((state) => state[field] = value);
-            // this.setState((state)=>state[evt.target.name] = evt.target.value)
-    
-    
-        }
-     save = (evt) => {
-            console.log("Dans save...");
-            
-            evt.preventDefault();  on desactive l action par defaut du navigateur pour l evenement onclick de bouton de formulaire
-            let categorie = {
-                id_categorie : this.state.id_categorie
-            }
-            let produit = {
-                id: this.state.id_produit,
-                nom: this.state.nom,
-                quantite:  this.state.quantite,
-                description: this.state.description,
-                url_image: this.state.url_image,
-                categorie:categorie,
-                prix_actuel: this.state.prix_actuel
-            }
-            console.log("produit : " + produit.nom);
-            this.saveBdd(produit);
-        }
-    
-    
-    
-    
-        saveBdd = (produit) => {
-            console.log("saving....");
-            if (!produit.id_produit) {
-                //product.id = this.state.productId;
-                fetch("http://localhost:8080/produits", {
-                    method: "POST", 
-                    headers: { "Content-type": "application/json"},
-                    body: JSON.stringify(produit)
-                }).then((data) => data.json())
-                        console.log("saved");
-                    }else {
-                        fetch(`http://localhost:8080/produits/${this.props.match.params.id}`, {
-                            method: "PUT",
-                            headers: {"Content-type": "application/json" },
-                            body: JSON.stringify(produit)
-                        })
-                            .then((data) => data.json())
-                            .then((res) => this.setState(
-                                {
-                                    produits: this.state.produits.map((p) => p.id === produit.id_produit ? res : p),
-                                    startEditing: false
-                                }
-                            ))
-                    }
-                    this.props.history.push('/Produits');
-                }
-    */
 
 
 
@@ -125,7 +62,7 @@ export default class ProduitForm extends React.Component {
                     <form>
                         <div className="champ" style={edit ? {} : { display: 'none' }}></div>
 
-                        <div> <input name="id_produit" readOnly value={produit.id_produit ? produit.id : 0} /></div>
+                        <div> <input name="id_produit" readOnly value={produit.id_produit ? produit.id_produit : 0} /></div>
                         {/*value  avec le statte du this product permet de preremplir le formulaire*/}
                         <div>
                             <input type="text" name="nom" value={produit.nom} placeholder="nom" onChange={this.handleChange} />
@@ -176,12 +113,13 @@ export default class ProduitForm extends React.Component {
          }
         const id = this.props.match.params.id;
         if (id) {
+            console.log("id componentdidmount",id)
             fetch(`http://localhost:8080/api/public/produits/${id}`, {
                 method: "GET"
 
             })
                 .then((data) => {
-                    console.log(data);
+                    console.log("data jason from produits",data);
                     return data.json()
                 })
                 .then((res) => {
