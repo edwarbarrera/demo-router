@@ -9,6 +9,7 @@ class ProduitService {
   }
 
   createProduit(produit) {
+    console.log("ProduitService -> createProduit");
     return axios.post(API_URL + '/employe/produits/create', 
                 produit, { headers: authHeader() });
   }

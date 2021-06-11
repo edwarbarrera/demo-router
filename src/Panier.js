@@ -19,7 +19,7 @@ export default class Panier extends React.Component {
                         
                         return (
                             <section key={p.id_produit}>
-                                <div><img src={p.product.url_image} height="150" widht="150"/></div>
+                                <div><img src={p.product.url_image} height="150"/></div>
                                 <section id="NamePriceQuantity">
                                     <div id="ProductName">{p.product.nom}</div>
                                     <div id="Price">Prix à l'unité : {p.product. prix_actuel}&euro;<br/>

@@ -27,7 +27,7 @@ export default class Produits extends React.Component {
   }
 
   setCurrentPage = (currentPage) => {
-    console.log(currentPage);
+   
     this.setState({ currentPage: currentPage });
     this.getProduits(currentPage, this.state.parPage, this.state.motCle);
   }
@@ -149,7 +149,7 @@ export default class Produits extends React.Component {
     this.setState({ min: min, max: max, currentPage: 0 });
     this.props.history.push(`/produits?currentPage=${this.state.currentPage}&min=${min}&max=${max}`);
   }
-  
+
   clearSearchParPrix = () => {
     this.setState({ min: 0, max: 0 });
     this.props.history.push(`/produits?currentPage=0`);
@@ -158,7 +158,7 @@ export default class Produits extends React.Component {
   }
 
   render() {
-    console.log(this.props.match);
+   
     const isEmploye = AuthService.isEmploye(this.props.currentUser);
     return (
       <React.Fragment>
@@ -182,8 +182,8 @@ export default class Produits extends React.Component {
             <Route path={this.props.match.path + '/:id'} render={
               (props) => <ProduitForm {...props} saveCallback={this.save} />
             } />
-
-            <Route path={this.props.match.path + '/'} render={
+            <Route path={this.props.match.path + '/:id'} component={FicheProduit} />
+            <Route exact path={this.props.match.path + '/'} render={
               (props) => <ProduitListe {...props}
                 currentUser={this.props.currentUser}
                 motCle={this.state.motCle}

@@ -15,6 +15,7 @@ export default class ProduitForm extends React.Component {
                 description: "",
                 url_image: "",
                 prix_actuel: 0,
+                quantiteSelectionnee:0,
                 categorie: {
                     id_categorie: 1,
                     libelle: ""
@@ -52,7 +53,7 @@ export default class ProduitForm extends React.Component {
 
     render() {
 
-        const edit = !!this.props.match.params.id;
+        const edit = !!this.props.id_produit;
         const produit = this.state.produit || {};
         return (
             <React.Fragment>

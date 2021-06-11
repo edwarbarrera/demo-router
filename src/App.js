@@ -37,7 +37,8 @@ class App extends React.Component {
       else {
 
         state.panier = state.panier.map((p) => {
-          p.product.quantite = produit.id_produit === p.product.id_produit ? p.quantite + 1 : p.quantite;
+          p.quantite =p.product.id_produit === produit.id_produit ? p.quantite + 1 : p.quantite;
+          console.log("quantité",p.quantite)
           return p;
         })
       }
@@ -49,7 +50,7 @@ class App extends React.Component {
     console.log("delete product id_produit", produit)
     const lignePanier = { product: produit, quantite: 0 };
     this.state.panier = [...this.state.panier, lignePanier];
-    this.setState((state) => state.panier = state.panier.filter((p) => p.id_produit !== p.product.id_produit))
+    this.setState((state) => state.panier = state.panier.filter((p) => p.id_produit !==p.produitId))
 
   }
 
@@ -110,7 +111,7 @@ class App extends React.Component {
     let panier = JSON.parse(localStorage.getItem("panier")) || [];
     this.setState({ currentUser: AuthService.getCurrentUser(), panier: panier })
   }
-  
+
   componentDidUpdate() {
     console.log("componentDidUpdate");
     localStorage.setItem("panier", JSON.stringify(this.state.panier));
